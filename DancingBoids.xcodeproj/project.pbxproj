@@ -8,16 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
+		59DCE4CD25BDF29100665E40 /* DancingBoidsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */; };
 		ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD891831DC38B790019C16F /* AppDelegate.swift */; };
 		ACD891861DC38B790019C16F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD891851DC38B790019C16F /* Assets.xcassets */; };
 		ACD891891DC38B790019C16F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD891871DC38B790019C16F /* MainMenu.xib */; };
 		ACD8918E1DC38C4B0019C16F /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		59DCE4CF25BDF29100665E40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03A4850F1B644145008A2D6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACD891801DC38B790019C16F;
+			remoteInfo = ScreenSaverTest;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		03A485181B644145008A2D6A /* DancingBoids.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoids.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A4851C1B644145008A2D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A485261B644187008A2D6A /* DancingBoidsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancingBoidsView.swift; sourceTree = "<group>"; };
+		59DCE4CA25BDF29100665E40 /* DancingBoidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DancingBoidsTests.swift; sourceTree = "<group>"; };
+		59DCE4CE25BDF29100665E40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACD891811DC38B790019C16F /* ScreenSaverTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenSaverTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD891831DC38B790019C16F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD891851DC38B790019C16F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -27,6 +41,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		03A485141B644145008A2D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59DCE4C725BDF29100665E40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -48,6 +69,7 @@
 			children = (
 				03A4851A1B644145008A2D6A /* DancingBoids */,
 				ACD891821DC38B790019C16F /* ScreenSaverTest */,
+				59DCE4CB25BDF29100665E40 /* DancingBoidsTests */,
 				03A485191B644145008A2D6A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +79,7 @@
 			children = (
 				03A485181B644145008A2D6A /* DancingBoids.saver */,
 				ACD891811DC38B790019C16F /* ScreenSaverTest.app */,
+				59DCE4CA25BDF29100665E40 /* DancingBoidsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,17 +88,18 @@
 			isa = PBXGroup;
 			children = (
 				03A485261B644187008A2D6A /* DancingBoidsView.swift */,
-				03A4851B1B644145008A2D6A /* Supporting Files */,
+				03A4851C1B644145008A2D6A /* Info.plist */,
 			);
 			path = DancingBoids;
 			sourceTree = "<group>";
 		};
-		03A4851B1B644145008A2D6A /* Supporting Files */ = {
+		59DCE4CB25BDF29100665E40 /* DancingBoidsTests */ = {
 			isa = PBXGroup;
 			children = (
-				03A4851C1B644145008A2D6A /* Info.plist */,
+				59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */,
+				59DCE4CE25BDF29100665E40 /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = DancingBoidsTests;
 			sourceTree = "<group>";
 		};
 		ACD891821DC38B790019C16F /* ScreenSaverTest */ = {
@@ -120,6 +144,24 @@
 			productReference = 03A485181B644145008A2D6A /* DancingBoids.saver */;
 			productType = "com.apple.product-type.bundle";
 		};
+		59DCE4C925BDF29100665E40 /* DancingBoidsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59DCE4D125BDF29100665E40 /* Build configuration list for PBXNativeTarget "DancingBoidsTests" */;
+			buildPhases = (
+				59DCE4C625BDF29100665E40 /* Sources */,
+				59DCE4C725BDF29100665E40 /* Frameworks */,
+				59DCE4C825BDF29100665E40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				59DCE4D025BDF29100665E40 /* PBXTargetDependency */,
+			);
+			name = DancingBoidsTests;
+			productName = DancingBoidsTests;
+			productReference = 59DCE4CA25BDF29100665E40 /* DancingBoidsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		ACD891801DC38B790019C16F /* ScreenSaverTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACD8918B1DC38B790019C16F /* Build configuration list for PBXNativeTarget "ScreenSaverTest" */;
@@ -143,13 +185,18 @@
 		03A4850F1B644145008A2D6A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					03A485171B644145008A2D6A = {
 						CreatedOnToolsVersion = 6.2;
 						LastSwiftMigration = 0800;
+					};
+					59DCE4C925BDF29100665E40 = {
+						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = ACD891801DC38B790019C16F;
 					};
 					ACD891801DC38B790019C16F = {
 						CreatedOnToolsVersion = 8.0;
@@ -172,12 +219,20 @@
 			targets = (
 				03A485171B644145008A2D6A /* DancingBoids */,
 				ACD891801DC38B790019C16F /* ScreenSaverTest */,
+				59DCE4C925BDF29100665E40 /* DancingBoidsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		03A485161B644145008A2D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59DCE4C825BDF29100665E40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -204,6 +259,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		59DCE4C625BDF29100665E40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59DCE4CD25BDF29100665E40 /* DancingBoidsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACD8917D1DC38B790019C16F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -214,6 +277,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		59DCE4D025BDF29100665E40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACD891801DC38B790019C16F /* ScreenSaverTest */;
+			targetProxy = 59DCE4CF25BDF29100665E40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		ACD891871DC38B790019C16F /* MainMenu.xib */ = {
@@ -333,7 +404,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = ScreenSaverMinimal/Info.plist;
+				INFOPLIST_FILE = DancingBoids/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
@@ -350,7 +421,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = ScreenSaverMinimal/Info.plist;
+				INFOPLIST_FILE = DancingBoids/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
@@ -358,6 +429,58 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
+		59DCE4D225BDF29100665E40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DancingBoidsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoidsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScreenSaverTest.app/Contents/MacOS/ScreenSaverTest";
+			};
+			name = Debug;
+		};
+		59DCE4D325BDF29100665E40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DancingBoidsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoidsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScreenSaverTest.app/Contents/MacOS/ScreenSaverTest";
 			};
 			name = Release;
 		};
@@ -417,6 +540,15 @@
 			buildConfigurations = (
 				03A485241B644145008A2D6A /* Debug */,
 				03A485251B644145008A2D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59DCE4D125BDF29100665E40 /* Build configuration list for PBXNativeTarget "DancingBoidsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59DCE4D225BDF29100665E40 /* Debug */,
+				59DCE4D325BDF29100665E40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
