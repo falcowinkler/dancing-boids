@@ -1,4 +1,5 @@
 import ScreenSaver
+import Flockingbird
 
 class DancingBoidsView : ScreenSaverView {
     
@@ -21,9 +22,8 @@ class DancingBoidsView : ScreenSaverView {
 
     override func draw(_ rect: NSRect) {
         let bPath:NSBezierPath = NSBezierPath(rect: bounds)
-        NSColor(red: 0, green: 0.0, blue: 1, alpha: 1).set()
+        NSColor(red: CGFloat(Flockingbird().my_num()), green: CGFloat(Flockingbird().my_num()), blue: CGFloat(Flockingbird().my_num()), alpha: 1).set()
         bPath.fill()
-
      }
     
     override func animateOneFrame() {

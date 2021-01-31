@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
 		59DCE4CD25BDF29100665E40 /* DancingBoidsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */; };
+		59F84B7225C5F56A0085086F /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 59F84B7125C5F56A0085086F /* Flockingbird */; };
+		59F84B7425C5F5700085086F /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 59F84B7325C5F5700085086F /* Flockingbird */; };
 		ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD891831DC38B790019C16F /* AppDelegate.swift */; };
 		ACD891861DC38B790019C16F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD891851DC38B790019C16F /* Assets.xcassets */; };
 		ACD891891DC38B790019C16F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD891871DC38B790019C16F /* MainMenu.xib */; };
@@ -44,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F84B7225C5F56A0085086F /* Flockingbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F84B7425C5F5700085086F /* Flockingbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +75,7 @@
 				ACD891821DC38B790019C16F /* ScreenSaverTest */,
 				59DCE4CB25BDF29100665E40 /* DancingBoidsTests */,
 				03A485191B644145008A2D6A /* Products */,
+				59F84B7025C5F56A0085086F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +105,13 @@
 				59DCE4CE25BDF29100665E40 /* Info.plist */,
 			);
 			path = DancingBoidsTests;
+			sourceTree = "<group>";
+		};
+		59F84B7025C5F56A0085086F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		ACD891821DC38B790019C16F /* ScreenSaverTest */ = {
@@ -140,6 +152,9 @@
 			dependencies = (
 			);
 			name = DancingBoids;
+			packageProductDependencies = (
+				59F84B7125C5F56A0085086F /* Flockingbird */,
+			);
 			productName = SwiftCircle;
 			productReference = 03A485181B644145008A2D6A /* DancingBoids.saver */;
 			productType = "com.apple.product-type.bundle";
@@ -175,6 +190,9 @@
 			dependencies = (
 			);
 			name = ScreenSaverTest;
+			packageProductDependencies = (
+				59F84B7325C5F5700085086F /* Flockingbird */,
+			);
 			productName = ScreenSaverTest;
 			productReference = ACD891811DC38B790019C16F /* ScreenSaverTest.app */;
 			productType = "com.apple.product-type.application";
@@ -213,6 +231,9 @@
 				Base,
 			);
 			mainGroup = 03A4850E1B644145008A2D6A;
+			packageReferences = (
+				593CFC7F25C5F1820019DCEC /* XCRemoteSwiftPackageReference "flockingbird-swift" */,
+			);
 			productRefGroup = 03A485191B644145008A2D6A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -394,7 +415,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -406,7 +428,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = DancingBoids/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -423,10 +450,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = DancingBoids/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
 			};
@@ -447,7 +480,11 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DancingBoidsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -474,7 +511,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DancingBoidsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoidsTests;
@@ -495,8 +536,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = ScreenSaverTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -515,8 +559,11 @@
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ScreenSaverTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -563,6 +610,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		593CFC7F25C5F1820019DCEC /* XCRemoteSwiftPackageReference "flockingbird-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:falcowinkler/flockingbird-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "0.0.1-beta";
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		59F84B7125C5F56A0085086F /* Flockingbird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 593CFC7F25C5F1820019DCEC /* XCRemoteSwiftPackageReference "flockingbird-swift" */;
+			productName = Flockingbird;
+		};
+		59F84B7325C5F5700085086F /* Flockingbird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 593CFC7F25C5F1820019DCEC /* XCRemoteSwiftPackageReference "flockingbird-swift" */;
+			productName = Flockingbird;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03A4850F1B644145008A2D6A /* Project object */;
 }
