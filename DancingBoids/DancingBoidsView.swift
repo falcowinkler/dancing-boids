@@ -22,8 +22,18 @@ class DancingBoidsView : ScreenSaverView {
 
     override func draw(_ rect: NSRect) {
         let bPath:NSBezierPath = NSBezierPath(rect: bounds)
-        NSColor(red: CGFloat(Flockingbird().my_num()), green: CGFloat(Flockingbird().my_num()), blue: CGFloat(Flockingbird().my_num()), alpha: 1).set()
+        NSColor.white.set()
         bPath.fill()
+        NSColor(red: 0, green: 0, blue: 0, alpha: 1).set()
+        let flock = Flockingbird(numberOfBoids: 10)
+        for boid in flock!.currentFlock.boids {
+            let x = abs(boid.position.x)
+            let y = abs(boid.position.y)
+            let dx: CGFloat = CGFloat(x) * (bounds.width / 10)
+            let dy: CGFloat = CGFloat(y) * (bounds.height / 10)
+            let bPath:NSBezierPath = NSBezierPath(rect: CGRect(x: dx, y: dy, width: 10, height: 10))
+            bPath.fill()
+        }
      }
     
     override func animateOneFrame() {
