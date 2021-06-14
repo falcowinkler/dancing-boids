@@ -5,8 +5,11 @@ class DancingBoidsView : ScreenSaverView {
     let flockSim: FlockSimulation
     override init(frame: NSRect, isPreview: Bool) {
         flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 100, maxX: 1024, maxY: 600),
-            simulationParameters: FlockSimulationParameters(fromDict: ["maxX": 1024, "maxY": 600]))
+            flock: Flock(numberOfBoids: 100, maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
+            simulationParameters: FlockSimulationParameters(
+                fromDict:
+                    ["maxX": Int(frame.size.width),
+                     "maxY": Int(frame.size.height)]))
         super.init(frame: frame, isPreview: isPreview)!
     }
     
@@ -16,20 +19,25 @@ class DancingBoidsView : ScreenSaverView {
 
     override func draw(_ rect: NSRect) {
         let bPath:NSBezierPath = NSBezierPath(rect: bounds)
-        NSColor.white.set()
+        NSColor.black.set()
         bPath.fill()
-        NSColor(red: 0, green: 0, blue: 0, alpha: 1).set()
+
         let context = NSGraphicsContext.current!.cgContext
         for boid in flockSim.currentFlock.boids {
             let x = abs(boid.position.x)
             let y = abs(boid.position.y)
             let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi)/2;
             context.saveGState()
-            context.setFillColor(.black)
+            context.setStrokeColor(.white)
             context.translateBy(x: CGFloat(x), y: CGFloat(y))
             context.rotate(by: CGFloat(theta))
-            context.addLines(between: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 10)])
-            context.drawPath(using: .fillStroke)
+            context.addLines(between: [
+                CGPoint(x: -2.5, y: 0),
+                CGPoint(x: 2.5, y: 0),
+                CGPoint(x: 0, y: 10),
+                CGPoint(x: -2.5, y: 0)
+            ])
+            context.drawPath(using: .stroke)
             context.restoreGState()
         }
      }
