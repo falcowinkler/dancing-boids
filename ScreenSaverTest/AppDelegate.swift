@@ -10,6 +10,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         screenSaverView.frame = (window.contentView?.bounds)!
         window.contentView?.addSubview(screenSaverView)
+        screenSaverView.startAnimation()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

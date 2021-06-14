@@ -2,41 +2,42 @@ import ScreenSaver
 import Flockingbird
 
 class DancingBoidsView : ScreenSaverView {
-    
+    let flockSim: FlockSimulation
     override init(frame: NSRect, isPreview: Bool) {
+        flockSim = FlockSimulation(
+            flock: Flock(numberOfBoids: 100, maxX: 1024, maxY: 600),
+            simulationParameters: FlockSimulationParameters(fromDict: ["maxX": 1024, "maxY": 600]))
         super.init(frame: frame, isPreview: isPreview)!
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("no storyboards")
     }
-
-    override func startAnimation() {
-        super.startAnimation()
-    }
-    
-    override func stopAnimation() {
-        super.stopAnimation()
-    }
-    
 
     override func draw(_ rect: NSRect) {
         let bPath:NSBezierPath = NSBezierPath(rect: bounds)
         NSColor.white.set()
         bPath.fill()
         NSColor(red: 0, green: 0, blue: 0, alpha: 1).set()
-        let flock = Flockingbird(numberOfBoids: 10)
-        for boid in flock!.currentFlock.boids {
+        let context = NSGraphicsContext.current!.cgContext
+        for boid in flockSim.currentFlock.boids {
             let x = abs(boid.position.x)
             let y = abs(boid.position.y)
-            let dx: CGFloat = CGFloat(x) * (bounds.width / 10)
-            let dy: CGFloat = CGFloat(y) * (bounds.height / 10)
-            let bPath:NSBezierPath = NSBezierPath(rect: CGRect(x: dx, y: dy, width: 10, height: 10))
-            bPath.fill()
+            let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi)/2;
+            context.saveGState()
+            context.setFillColor(.black)
+            context.translateBy(x: CGFloat(x), y: CGFloat(y))
+            context.rotate(by: CGFloat(theta))
+            context.addLines(between: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 10)])
+            context.drawPath(using: .fillStroke)
+            context.restoreGState()
         }
      }
-    
+
     override func animateOneFrame() {
+        super.animateOneFrame()
+        flockSim.step()
+        setNeedsDisplay(bounds)
     }
 }
     
