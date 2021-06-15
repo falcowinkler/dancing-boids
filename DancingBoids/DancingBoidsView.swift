@@ -20,6 +20,7 @@ class DancingBoidsView : ScreenSaverView {
 
     override func draw(_ rect: NSRect) {
         currentlyDisplayingScreenSaverDelegate.draw(rect)
+        drawFadeOverlay()
     }
 
     override func animateOneFrame() {

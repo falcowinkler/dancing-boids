@@ -8,7 +8,8 @@ struct FlockingScreenSaverViewDelegate: ScreenSaverViewDelegate {
 
     init(frame: NSRect, isPreview: Bool) {
         flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 100, maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
+            flock: Flock(numberOfBoids: SSRandomIntBetween(100, 200),
+                         maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
             simulationParameters: FlockSimulationParameters(
                 fromDict:
                     ["maxX": Int(frame.size.width),
