@@ -2,15 +2,16 @@ import ScreenSaver
 import Flockingbird
 
 class DancingBoidsView : ScreenSaverView {
-    let flockSim: FlockSimulation
+    private let screenSaverDelegates: [ScreenSaverViewDelegate.Type] = [
+        FlockingScreenSaverViewDelegate.self
+    ]
+    private var currentlyDisplayingScreenSaverDelegate: ScreenSaverViewDelegate!
+    private var frameCount = 0
+    private var switchDelegateAfterNumberOfFrames = 30 * 30
+
     override init(frame: NSRect, isPreview: Bool) {
-        flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 100, maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
-            simulationParameters: FlockSimulationParameters(
-                fromDict:
-                    ["maxX": Int(frame.size.width),
-                     "maxY": Int(frame.size.height)]))
         super.init(frame: frame, isPreview: isPreview)!
+        currentlyDisplayingScreenSaverDelegate = initializeRandomScreenSaverDelegate()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -18,34 +19,37 @@ class DancingBoidsView : ScreenSaverView {
     }
 
     override func draw(_ rect: NSRect) {
-        let bPath:NSBezierPath = NSBezierPath(rect: bounds)
-        NSColor.black.set()
-        bPath.fill()
-
-        let context = NSGraphicsContext.current!.cgContext
-        for boid in flockSim.currentFlock.boids {
-            let x = abs(boid.position.x)
-            let y = abs(boid.position.y)
-            let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi)/2;
-            context.saveGState()
-            context.setStrokeColor(.white)
-            context.translateBy(x: CGFloat(x), y: CGFloat(y))
-            context.rotate(by: CGFloat(theta))
-            context.addLines(between: [
-                CGPoint(x: -2.5, y: 0),
-                CGPoint(x: 2.5, y: 0),
-                CGPoint(x: 0, y: 10),
-                CGPoint(x: -2.5, y: 0)
-            ])
-            context.drawPath(using: .stroke)
-            context.restoreGState()
-        }
-     }
+        currentlyDisplayingScreenSaverDelegate.draw(rect)
+    }
 
     override func animateOneFrame() {
         super.animateOneFrame()
-        flockSim.step()
+        frameCount = (frameCount + 1) % switchDelegateAfterNumberOfFrames
+        if frameCount == 0 {
+            currentlyDisplayingScreenSaverDelegate = initializeRandomScreenSaverDelegate()
+        }
+        currentlyDisplayingScreenSaverDelegate.animateOneFrame()
         setNeedsDisplay(bounds)
+    }
+
+    private func initializeRandomScreenSaverDelegate() -> ScreenSaverViewDelegate {
+        let type = screenSaverDelegates.randomElement()!
+        return type.init(frame: frame, isPreview: isPreview)
+    }
+
+    private func drawFadeOverlay() {
+        let bPath:NSBezierPath = NSBezierPath(rect: frame)
+        let frameCountWhenFullyFadedin: Float = Float(switchDelegateAfterNumberOfFrames) / 10.0
+        let fadeInOverlayAlpha = 1 - CGFloat(min(
+                                                Float(self.frameCount),
+                                                frameCountWhenFullyFadedin)/frameCountWhenFullyFadedin)
+        NSColor.init(
+            deviceRed: 0,
+            green: 0,
+            blue: 0,
+            alpha: fadeInOverlayAlpha
+        ).set()
+        bPath.fill()
     }
 }
     
