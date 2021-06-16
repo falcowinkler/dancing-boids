@@ -19,7 +19,7 @@ struct FlockingScreenSaverViewDelegate: ScreenSaverViewDelegate {
     }
 
     func draw(_ rect: NSRect) {
-        let bPath:NSBezierPath = NSBezierPath(rect: frame)
+        let bPath:NSBezierPath = NSBezierPath(rect: rect)
         NSColor.black.set()
         bPath.fill()
 

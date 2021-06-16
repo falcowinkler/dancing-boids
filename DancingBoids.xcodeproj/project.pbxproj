@@ -98,12 +98,20 @@
 		03A4851A1B644145008A2D6A /* DancingBoids */ = {
 			isa = PBXGroup;
 			children = (
+				594DB2C52679D487003C4BBC /* ScreenSaverDelegates */,
 				03A485261B644187008A2D6A /* DancingBoidsView.swift */,
-				03A4851C1B644145008A2D6A /* Info.plist */,
 				59BB90B9267938B7002DE51D /* ScreenSaverViewDelegate.swift */,
-				59BB90BB26793931002DE51D /* FlockingScreenSaverViewDelegate.swift */,
+				03A4851C1B644145008A2D6A /* Info.plist */,
 			);
 			path = DancingBoids;
+			sourceTree = "<group>";
+		};
+		594DB2C52679D487003C4BBC /* ScreenSaverDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				59BB90BB26793931002DE51D /* FlockingScreenSaverViewDelegate.swift */,
+			);
+			path = ScreenSaverDelegates;
 			sourceTree = "<group>";
 		};
 		59DCE4CB25BDF29100665E40 /* DancingBoidsTests */ = {
