@@ -24,6 +24,10 @@ class DancingBoidsView : ScreenSaverView {
     }
 
     override func animateOneFrame() {
+        // According to https://stackoverflow.com/a/40697758/3885491 this
+        // Switches to a GPU, Metal-based renderer, greatly improving performance.
+        self.layer!.drawsAsynchronously = true
+
         super.animateOneFrame()
         frameCount = (frameCount + 1) % switchDelegateAfterNumberOfFrames
         if frameCount == 0 {
