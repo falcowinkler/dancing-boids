@@ -3,7 +3,8 @@ import Flockingbird
 
 class DancingBoidsView : ScreenSaverView {
     private let screenSaverDelegates: [ScreenSaverViewDelegate.Type] = [
-        FlockingScreenSaverViewDelegate.self
+        FlockingScreenSaverViewDelegate.self,
+        LuminecentBoidsScreenSaverViewDeletgate.self
     ]
     private var currentlyDisplayingScreenSaverDelegate: ScreenSaverViewDelegate!
     private var frameCount = 0
