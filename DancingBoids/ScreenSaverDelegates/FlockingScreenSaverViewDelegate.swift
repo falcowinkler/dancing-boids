@@ -6,7 +6,7 @@ struct FlockingScreenSaverViewDelegate: ScreenSaverViewDelegate {
     let frame: NSRect
     let isPreview: Bool
 
-    init(frame: NSRect, isPreview: Bool) {
+    init(frame: NSRect, isPreview: Bool, layer: CALayer) {
         flockSim = FlockSimulation(
             flock: Flock(numberOfBoids: SSRandomIntBetween(100, 200),
                          maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
@@ -29,6 +29,7 @@ struct FlockingScreenSaverViewDelegate: ScreenSaverViewDelegate {
             let y = abs(boid.position.y)
             let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi) / 2
             context.saveGState()
+
             context.setStrokeColor(CGColor(red: 0.5 - CGFloat(y) / (self.frame.height * 4),
                                            green: 0.25 + CGFloat(y) / (self.frame.height * 4),
                                            blue: 0.5 + CGFloat(y) / (self.frame.height * 2), alpha: 1))

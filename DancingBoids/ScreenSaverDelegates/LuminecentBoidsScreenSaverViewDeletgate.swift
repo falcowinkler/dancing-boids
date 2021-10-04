@@ -6,7 +6,7 @@ struct LuminecentBoidsScreenSaverViewDeletgate: ScreenSaverViewDelegate {
     let frame: NSRect
     let isPreview: Bool
 
-    init(frame: NSRect, isPreview: Bool) {
+    init(frame: NSRect, isPreview: Bool, layer: CALayer) {
         flockSim = FlockSimulation(
             flock: Flock(numberOfBoids: SSRandomIntBetween(100, 200),
                          maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
