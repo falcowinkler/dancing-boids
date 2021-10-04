@@ -9,10 +9,19 @@ class DancingBoidsView : ScreenSaverView {
     private var currentlyDisplayingScreenSaverDelegate: ScreenSaverViewDelegate!
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
-    
+    let flockSim: FlockSimulation
+
     var vertexBuffer: MTLBuffer!
 
     override init(frame: NSRect, isPreview: Bool) {
+        flockSim = FlockSimulation(
+            flock: Flock(numberOfBoids: 10,
+                         maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
+            simulationParameters: FlockSimulationParameters(
+                fromDict:
+                    ["maxX": Int(frame.size.width),
+                     "maxY": Int(frame.size.height),
+                    ]))
         super.init(frame: frame, isPreview: isPreview)!
     }
     
@@ -22,31 +31,27 @@ class DancingBoidsView : ScreenSaverView {
 
     override func draw(_ rect: NSRect) {
         let device = MTLCreateSystemDefaultDevice()!
-        let layer = CAMetalLayer()          // 1
-        layer.device = device           // 2
-        layer.pixelFormat = .bgra8Unorm // 3
+        let layer = CAMetalLayer()
+        layer.device = device
+        layer.pixelFormat = .bgra8Unorm
         layer.framebufferOnly = true
         layer.frame = self.frame
         self.layer!.addSublayer(layer)
-        let vertexData: [Float] = [
-            0.0,  1.0, 0.0,
-            -1.0, -1.0, 0.0,
-            1.0, -1.0, 0.0
-        ]
-        let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0]) // 1
-        vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: []) // 2
-        // 1
+        let vertexData: [Float] = flockSim.currentFlock.boids.flatMap {
+            [$0.position.x / Float(frame.size.width), $0.position.y / Float(frame.size.height), 0]
+        }
+        
+        let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
+        vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
         let defaultLibrary = device.makeDefaultLibrary()!
         let fragmentProgram = defaultLibrary.makeFunction(name: "basic_fragment")
         let vertexProgram = defaultLibrary.makeFunction(name: "basic_vertex")
 
-        // 2
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
         pipelineStateDescriptor.vertexFunction = vertexProgram
         pipelineStateDescriptor.fragmentFunction = fragmentProgram
         pipelineStateDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
 
-        // 3
         let pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
 
         let commandQueue = device.makeCommandQueue()!
@@ -65,7 +70,7 @@ class DancingBoidsView : ScreenSaverView {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder
-            .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3, instanceCount: 1)
+            .drawPrimitives(type: .point, vertexStart: 0, vertexCount: flockSim.currentFlock.boids.count)
         renderEncoder.endEncoding()
         commandBuffer.present(drawable)
         commandBuffer.commit()
@@ -76,6 +81,7 @@ class DancingBoidsView : ScreenSaverView {
         // Switches to a GPU, Metal-based renderer, greatly improving performance.
         super.animateOneFrame()
         frameCount = (frameCount + 1) % switchDelegateAfterNumberOfFrames
+        flockSim.step()
         setNeedsDisplay(bounds)
     }
 
