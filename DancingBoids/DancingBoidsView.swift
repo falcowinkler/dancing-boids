@@ -1,6 +1,13 @@
 import ScreenSaver
 import Flockingbird
 import Metal
+import simd
+
+struct Vertex {
+    let position: simd_float4
+    let color: simd_float4
+    let pointsize: simd_float1
+}
 
 class DancingBoidsView : ScreenSaverView {
     private let screenSaverDelegates: [ScreenSaverViewDelegate.Type] = [
@@ -9,7 +16,12 @@ class DancingBoidsView : ScreenSaverView {
     private var currentlyDisplayingScreenSaverDelegate: ScreenSaverViewDelegate!
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
-    let flockSim: FlockSimulation
+    private let flockSim: FlockSimulation
+    private var drawingLayer: CAMetalLayer!
+    private var device: MTLDevice!
+    private var fragmentFunction: MTLFunction!
+    private var vertexFunction: MTLFunction!
+    private var pipelineState: MTLRenderPipelineState!
 
     var vertexBuffer: MTLBuffer!
 
@@ -22,7 +34,29 @@ class DancingBoidsView : ScreenSaverView {
                     ["maxX": Int(frame.size.width),
                      "maxY": Int(frame.size.height),
                     ]))
+
         super.init(frame: frame, isPreview: isPreview)!
+    }
+
+    override func startAnimation() {
+        super.startAnimation()
+        self.device = MTLCreateSystemDefaultDevice()!
+        let layer = CAMetalLayer()
+        layer.device = device
+        layer.pixelFormat = .bgra8Unorm
+        layer.framebufferOnly = true
+        layer.frame = self.frame
+
+        let defaultLibrary = device.makeDefaultLibrary()!
+        self.fragmentFunction = defaultLibrary.makeFunction(name: "fragment_main")
+        self.vertexFunction = defaultLibrary.makeFunction(name: "vertex_main")
+        let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
+        pipelineStateDescriptor.vertexFunction = self.vertexFunction
+        pipelineStateDescriptor.fragmentFunction = self.fragmentFunction
+        pipelineStateDescriptor.colorAttachments[0].pixelFormat = layer.pixelFormat
+
+        self.pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
+        self.drawingLayer = layer
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,39 +64,34 @@ class DancingBoidsView : ScreenSaverView {
     }
 
     override func draw(_ rect: NSRect) {
-        let device = MTLCreateSystemDefaultDevice()!
-        let layer = CAMetalLayer()
-        layer.device = device
-        layer.pixelFormat = .bgra8Unorm
-        layer.framebufferOnly = true
-        layer.frame = self.frame
-        self.layer!.addSublayer(layer)
-        let vertexData: [Float] = flockSim.currentFlock.boids.flatMap {
-            [$0.position.x / Float(frame.size.width), $0.position.y / Float(frame.size.height), 0]
+        if self.layer!.sublayers == nil {
+            self.layer?.addSublayer(self.drawingLayer)
         }
-        
-        let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
+        let vertexData: [Vertex] = flockSim.currentFlock.boids.map {
+            Vertex(
+                position:
+                        .init(
+                            x: $0.position.x,
+                            y: $0.position.y,
+                            z: 0,
+                            w: 0),
+                color: .init(x:1, y:1, z:1, w:1),
+                pointsize: 1
+            )
+        }
+
+        let dataSize = vertexData.count * MemoryLayout<Vertex>.stride
         vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
-        let defaultLibrary = device.makeDefaultLibrary()!
-        let fragmentProgram = defaultLibrary.makeFunction(name: "basic_fragment")
-        let vertexProgram = defaultLibrary.makeFunction(name: "basic_vertex")
-
-        let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
-        pipelineStateDescriptor.vertexFunction = vertexProgram
-        pipelineStateDescriptor.fragmentFunction = fragmentProgram
-        pipelineStateDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
-
-        let pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
 
         let commandQueue = device.makeCommandQueue()!
-        let drawable = layer.nextDrawable()!
+        let drawable = drawingLayer.nextDrawable()!
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = drawable.texture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(
             red: 0.0,
-            green: 104.0/255.0,
-            blue: 55.0/255.0,
+            green: 0,
+            blue: 0,
             alpha: 1.0)
         let commandBuffer = commandQueue.makeCommandBuffer()!
         let renderEncoder = commandBuffer
@@ -70,7 +99,7 @@ class DancingBoidsView : ScreenSaverView {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder
-            .drawPrimitives(type: .point, vertexStart: 0, vertexCount: flockSim.currentFlock.boids.count)
+            .drawPrimitives(type: .point, vertexStart: 0, vertexCount: vertexData.count)
         renderEncoder.endEncoding()
         commandBuffer.present(drawable)
         commandBuffer.commit()
