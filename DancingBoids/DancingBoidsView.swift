@@ -48,6 +48,8 @@ class DancingBoidsView : ScreenSaverView {
         layer.frame = self.frame
 
         let defaultLibrary = device.makeDefaultLibrary()!
+//        self.fragmentFunction = defaultLibrary.makeFunction(name: "basic_fragment")
+  //      self.vertexFunction = defaultLibrary.makeFunction(name: "basic_vertex")
         self.fragmentFunction = defaultLibrary.makeFunction(name: "fragment_main")
         self.vertexFunction = defaultLibrary.makeFunction(name: "vertex_main")
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
@@ -71,16 +73,19 @@ class DancingBoidsView : ScreenSaverView {
             Vertex(
                 position:
                         .init(
-                            x: $0.position.x,
-                            y: $0.position.y,
+                            x: $0.position.x / Float(frame.size.width),
+                            y: $0.position.y / Float(frame.size.height),
                             z: 0,
-                            w: 0),
+                            w: 1),
                 color: .init(x:1, y:1, z:1, w:1),
-                pointsize: 1
+                pointsize: 10
             )
         }
-
+        /*let vertexData: [Float] = flockSim.currentFlock.boids.flatMap {
+            [$0.position.x / Float(frame.size.width), $0.position.y / Float(frame.size.height), 0]
+        }*/
         let dataSize = vertexData.count * MemoryLayout<Vertex>.stride
+        // let dataSize = vertexData.count * MemoryLayout<Float>.stride
         vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
 
         let commandQueue = device.makeCommandQueue()!
