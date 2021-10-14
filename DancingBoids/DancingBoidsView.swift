@@ -1,6 +1,7 @@
 import ScreenSaver
 import Flockingbird
 import Metal
+import MetalKit
 import simd
 
 struct Vertex {
@@ -27,7 +28,7 @@ class DancingBoidsView : ScreenSaverView {
 
     override init(frame: NSRect, isPreview: Bool) {
         flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 10,
+            flock: Flock(numberOfBoids: 2,
                          maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
             simulationParameters: FlockSimulationParameters(
                 fromDict:
@@ -48,8 +49,6 @@ class DancingBoidsView : ScreenSaverView {
         layer.frame = self.frame
 
         let defaultLibrary = device.makeDefaultLibrary()!
-//        self.fragmentFunction = defaultLibrary.makeFunction(name: "basic_fragment")
-  //      self.vertexFunction = defaultLibrary.makeFunction(name: "basic_vertex")
         self.fragmentFunction = defaultLibrary.makeFunction(name: "fragment_main")
         self.vertexFunction = defaultLibrary.makeFunction(name: "vertex_main")
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
@@ -69,25 +68,26 @@ class DancingBoidsView : ScreenSaverView {
         if self.layer!.sublayers == nil {
             self.layer?.addSublayer(self.drawingLayer)
         }
-        let vertexData: [Vertex] = flockSim.currentFlock.boids.map {
-            Vertex(
-                position:
-                        .init(
-                            x: $0.position.x / Float(frame.size.width),
-                            y: $0.position.y / Float(frame.size.height),
-                            z: 0,
-                            w: 1),
-                color: .init(x:1, y:1, z:1, w:1),
-                pointsize: 10
-            )
+        let vertexData: [Vertex] = flockSim.currentFlock.boids.flatMap { (boid: Boid) -> [Vertex] in
+            let x = 2 * (boid.position.x / Float(frame.size.width)) - 1
+            let y = 2 * (boid.position.y / Float(frame.size.height)) - 1
+            let triangleVertices = [(x,y - 0.1), (x-0.025,y), (x+0.025, y)]
+            return triangleVertices.map {
+                Vertex(
+                    position:
+                            .init(
+                                // Todo; configure the library to produce [-1, 1] coordinates
+                                x: $0.0,
+                                y: $0.1,
+                                z: 0,
+                                w: 1),
+                    color: .init(x:1, y:1, z:1, w:1),
+                    pointsize: 10
+                )
+            }
         }
-        /*let vertexData: [Float] = flockSim.currentFlock.boids.flatMap {
-            [$0.position.x / Float(frame.size.width), $0.position.y / Float(frame.size.height), 0]
-        }*/
         let dataSize = vertexData.count * MemoryLayout<Vertex>.stride
-        // let dataSize = vertexData.count * MemoryLayout<Float>.stride
         vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
-
         let commandQueue = device.makeCommandQueue()!
         let drawable = drawingLayer.nextDrawable()!
         let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -104,7 +104,7 @@ class DancingBoidsView : ScreenSaverView {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder
-            .drawPrimitives(type: .point, vertexStart: 0, vertexCount: vertexData.count)
+            .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count * 3)
         renderEncoder.endEncoding()
         commandBuffer.present(drawable)
         commandBuffer.commit()
