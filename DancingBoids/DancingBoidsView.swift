@@ -3,6 +3,7 @@ import Flockingbird
 import Metal
 import MetalKit
 import simd
+import GLKit
 
 struct Vertex {
     let position: simd_float4
@@ -24,11 +25,9 @@ class DancingBoidsView : ScreenSaverView {
     private var vertexFunction: MTLFunction!
     private var pipelineState: MTLRenderPipelineState!
 
-    var vertexBuffer: MTLBuffer!
-
     override init(frame: NSRect, isPreview: Bool) {
         flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 2,
+            flock: Flock(numberOfBoids: 1,
                          maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
             simulationParameters: FlockSimulationParameters(
                 fromDict:
@@ -68,26 +67,28 @@ class DancingBoidsView : ScreenSaverView {
         if self.layer!.sublayers == nil {
             self.layer?.addSublayer(self.drawingLayer)
         }
-        let vertexData: [Vertex] = flockSim.currentFlock.boids.flatMap { (boid: Boid) -> [Vertex] in
+        let boids = flockSim.currentFlock.boids
+        let positions = boids.map { boid -> (x: Float, y: Float) in
             let x = 2 * (boid.position.x / Float(frame.size.width)) - 1
             let y = 2 * (boid.position.y / Float(frame.size.height)) - 1
+            return (x: x, y: y)
+        }
+        let vertexData: [Float] = positions.flatMap { (position) -> [Float] in
+            let x: Float = position.x
+            let y: Float = position.y
             let triangleVertices = [(x,y - 0.1), (x-0.025,y), (x+0.025, y)]
-            return triangleVertices.map {
-                Vertex(
-                    position:
-                            .init(
-                                // Todo; configure the library to produce [-1, 1] coordinates
-                                x: $0.0,
-                                y: $0.1,
-                                z: 0,
-                                w: 1),
-                    color: .init(x:1, y:1, z:1, w:1),
-                    pointsize: 10
-                )
+            return triangleVertices.flatMap {
+                [$0.0, $0.1, 0, 1]
             }
         }
-        let dataSize = vertexData.count * MemoryLayout<Vertex>.stride
-        vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
+
+        let dataSize = vertexData.count * MemoryLayout<Float>.stride
+        let vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
+
+        let rotationMatrix = matrix_from_rotation(radians: 0, x: positions.first!.x, y: positions.first!.y)
+
+        let transformationBuffer = device.makeBuffer(length: MemoryLayout.size(ofValue: rotationMatrix), options: [])
+
         let commandQueue = device.makeCommandQueue()!
         let drawable = drawingLayer.nextDrawable()!
         let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -103,6 +104,7 @@ class DancingBoidsView : ScreenSaverView {
             .makeRenderCommandEncoder(descriptor: renderPassDescriptor)!
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+        renderEncoder.setVertexBuffer(transformationBuffer, offset: 0, index: 1)
         renderEncoder
             .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count * 3)
         renderEncoder.endEncoding()
@@ -136,3 +138,26 @@ class DancingBoidsView : ScreenSaverView {
 }
     
 
+func  matrix_from_rotation(radians: Float, x: Float, y: Float, z: Float = 1) -> matrix_float4x4
+{
+    let v = vector_float3(x: x, y: y, z: z)
+    let cos = cosf(radians)
+    let cosp = 1.0 - cos
+    let sin = sinf(radians)
+
+    return matrix_float4x4(
+        .init(cos + cosp * v.x * v.x,
+              cosp * v.x * v.y + v.z * sin,
+              cosp * v.x * v.z - v.y * sin,
+              0),
+        .init(cosp * v.x * v.y - v.z * sin,
+              cosp * v.x * v.y + v.z * sin,
+              cosp * v.x * v.z - v.y * sin,
+              0),
+        .init(cosp * v.x * v.z + v.y * sin,
+              cosp * v.y * v.z - v.x * sin,
+              cos + cosp * v.z * v.z,
+              0),
+            .init(0, 0, 0, 1)
+    )
+}

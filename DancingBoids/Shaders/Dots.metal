@@ -1,27 +1,12 @@
 #include <metal_stdlib>
 using namespace metal;
 
-struct Vertex {
-    float4 position [[position]];
-    float4 color;
-    float pointsize[[point_size]];
-};
 
-vertex Vertex vertex_main(const device Vertex *vertices [[buffer(0)]], uint vid [[vertex_id]])
+vertex float4 vertex_main(const device float4 *vertices [[buffer(0)]], constant float4x4 &transformation [[buffer(1)]], uint vid [[vertex_id]])
 {
     return vertices[vid];
 }
 
-fragment float4 fragment_main(Vertex inVertex [[stage_in]]) {
-    return inVertex.color;
+fragment float4 fragment_main(float4 inVertex [[stage_in]]) {
+    return float4(1, 1, 1, 1);
 }
-
-fragment half4 basic_fragment() {
-    return half4(1.0);
-}
-
-vertex float4 basic_vertex(
-                           const device packed_float3* vertex_array [[ buffer(0) ]],
-                           unsigned int vid [[ vertex_id ]]) {
-                               return float4(vertex_array[vid], 1.0);
-                           }
