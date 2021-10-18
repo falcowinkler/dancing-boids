@@ -16,10 +16,6 @@ struct Transformation {
 }
 
 class DancingBoidsView : ScreenSaverView {
-    private let screenSaverDelegates: [ScreenSaverViewDelegate.Type] = [
-        LuminecentBoidsScreenSaverViewDeletgate.self
-    ]
-    private var currentlyDisplayingScreenSaverDelegate: ScreenSaverViewDelegate!
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
     private let flockSim: FlockSimulation
@@ -68,12 +64,14 @@ class DancingBoidsView : ScreenSaverView {
     }
 
     func normaliseCoord(boid: Boid) -> (x: Float, y: Float)  {
+        // TODO: make the library capable of dealing with -1, 1 coordinate space
         let x = 2 * (boid.position.x / Float(frame.size.width)) - 1
         let y = 2 * (boid.position.y / Float(frame.size.height)) - 1
         return (x: x, y: y)
     }
 
     override func draw(_ rect: NSRect) {
+        // TODO: when to add the layer? (when is self.layer != nil?)
         if self.layer!.sublayers == nil {
             self.layer?.addSublayer(self.drawingLayer)
         }
@@ -147,21 +145,6 @@ class DancingBoidsView : ScreenSaverView {
         frameCount = (frameCount + 1) % switchDelegateAfterNumberOfFrames
         flockSim.step()
         setNeedsDisplay(bounds)
-    }
-
-    private func drawFadeOverlay() {
-        let bPath:NSBezierPath = NSBezierPath(rect: frame)
-        let frameCountWhenFullyFadedin: Float = Float(switchDelegateAfterNumberOfFrames) / 10.0
-        let fadeInOverlayAlpha = 1 - CGFloat(min(
-                                                Float(self.frameCount),
-                                                frameCountWhenFullyFadedin)/frameCountWhenFullyFadedin)
-        NSColor.init(
-            deviceRed: 0,
-            green: 0,
-            blue: 0,
-            alpha: fadeInOverlayAlpha
-        ).set()
-        bPath.fill()
     }
 }
 
