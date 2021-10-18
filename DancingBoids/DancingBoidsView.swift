@@ -8,7 +8,11 @@ import GLKit
 struct Vertex {
     let position: simd_float4
     let color: simd_float4
-    let pointsize: simd_float1
+}
+
+struct Transformation {
+    let translation: simd_float4x4
+    let rotation: simd_float4x4
 }
 
 class DancingBoidsView : ScreenSaverView {
@@ -63,31 +67,55 @@ class DancingBoidsView : ScreenSaverView {
         fatalError("no storyboards")
     }
 
+    func normaliseCoord(boid: Boid) -> (x: Float, y: Float)  {
+        let x = 2 * (boid.position.x / Float(frame.size.width)) - 1
+        let y = 2 * (boid.position.y / Float(frame.size.height)) - 1
+        return (x: x, y: y)
+    }
+
     override func draw(_ rect: NSRect) {
         if self.layer!.sublayers == nil {
             self.layer?.addSublayer(self.drawingLayer)
         }
         let boids = flockSim.currentFlock.boids
-        let positions = boids.map { boid -> (x: Float, y: Float) in
-            let x = 2 * (boid.position.x / Float(frame.size.width)) - 1
-            let y = 2 * (boid.position.y / Float(frame.size.height)) - 1
-            return (x: x, y: y)
-        }
-        let vertexData: [Float] = positions.flatMap { (position) -> [Float] in
-            let x: Float = position.x
-            let y: Float = position.y
+        let positions = boids.map(normaliseCoord)
+        let vertexData: [Vertex] = positions.flatMap { (position) -> [Vertex] in
+            let x: Float = 0
+            let y: Float = 0
             let triangleVertices = [(x,y - 0.1), (x-0.025,y), (x+0.025, y)]
-            return triangleVertices.flatMap {
-                [$0.0, $0.1, 0, 1]
+            return triangleVertices.map {
+                Vertex(
+                    position: [$0.0, $0.1, 0, 1],
+                    color: .init(1, 1, 1, 1)
+                )
             }
         }
 
-        let dataSize = vertexData.count * MemoryLayout<Float>.stride
+        let transformations = boids.flatMap { boid -> [Transformation] in
+            let pos = normaliseCoord(boid: boid)
+            let x = pos.x
+            let y = pos.y
+            let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi) / 2
+            return [
+                Transformation (
+                    translation: translation_matrix(dx: x, dy: y),
+                    rotation: matrix_from_rotation(theta: theta)
+                ),
+                Transformation (
+                    translation: translation_matrix(dx: x, dy: y),
+                    rotation: matrix_from_rotation(theta: theta)
+                ),
+                Transformation (
+                    translation: translation_matrix(dx: x, dy: y),
+                    rotation: matrix_from_rotation(theta: theta)
+                )
+            ]
+        }
+
+        let dataSize = vertexData.count * MemoryLayout<Vertex>.stride
         let vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
 
-        let rotationMatrix = matrix_from_rotation(radians: 0, x: positions.first!.x, y: positions.first!.y)
-
-        let transformationBuffer = device.makeBuffer(length: MemoryLayout.size(ofValue: rotationMatrix), options: [])
+        let transformationBuffer = device.makeBuffer(bytes: transformations, length: transformations.count * MemoryLayout<Transformation>.stride, options: [])
 
         let commandQueue = device.makeCommandQueue()!
         let drawable = drawingLayer.nextDrawable()!
@@ -106,7 +134,7 @@ class DancingBoidsView : ScreenSaverView {
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder.setVertexBuffer(transformationBuffer, offset: 0, index: 1)
         renderEncoder
-            .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count * 3)
+            .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count)
         renderEncoder.endEncoding()
         commandBuffer.present(drawable)
         commandBuffer.commit()
@@ -136,28 +164,24 @@ class DancingBoidsView : ScreenSaverView {
         bPath.fill()
     }
 }
-    
 
-func  matrix_from_rotation(radians: Float, x: Float, y: Float, z: Float = 1) -> matrix_float4x4
+
+func translation_matrix(dx: Float, dy: Float) -> simd_float4x4 {
+    .init(.init(1, 0, 0, dx),
+          .init(0, 1, 0, dy),
+          .init(0, 0, 1, 0),
+          .init(0, 0, 0, 1))
+}
+
+func  matrix_from_rotation(theta: Float) -> simd_float4x4
 {
-    let v = vector_float3(x: x, y: y, z: z)
-    let cos = cosf(radians)
-    let cosp = 1.0 - cos
-    let sin = sinf(radians)
-
-    return matrix_float4x4(
-        .init(cos + cosp * v.x * v.x,
-              cosp * v.x * v.y + v.z * sin,
-              cosp * v.x * v.z - v.y * sin,
-              0),
-        .init(cosp * v.x * v.y - v.z * sin,
-              cosp * v.x * v.y + v.z * sin,
-              cosp * v.x * v.z - v.y * sin,
-              0),
-        .init(cosp * v.x * v.z + v.y * sin,
-              cosp * v.y * v.z - v.x * sin,
-              cos + cosp * v.z * v.z,
-              0),
-            .init(0, 0, 0, 1)
-    )
+    let rx: simd_float4x4 = .init(.init(1, 0, 0, 0),
+                                  .init(0, cos(theta), sin(theta), 0),
+                                  .init(0, -sin(theta), cos(theta), 0),
+                                  .init(0, 0, 0, 1))
+    let ry: simd_float4x4 = .init(.init(cos(theta), 0, -sin(theta), 0),
+                                  .init(0, 1, 0, 0),
+                                  .init(sin(theta), 0, cos(theta), 0),
+                                  .init(0, 0, 0, 1))
+    return rx*ry
 }
