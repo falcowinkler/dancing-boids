@@ -11,8 +11,8 @@ struct Vertex {
 }
 
 struct Transformation {
-    let translation: simd_float4x4
     let rotation: simd_float4x4
+    let translation: simd_float4x4
 }
 
 class DancingBoidsView : ScreenSaverView {
@@ -83,7 +83,7 @@ class DancingBoidsView : ScreenSaverView {
             let triangleVertices = [(x,y - 0.1), (x-0.025,y), (x+0.025, y)]
             return triangleVertices.map {
                 Vertex(
-                    position: [$0.0, $0.1, 0, 1],
+                    position: .init($0.0, $0.1, 0, 1),
                     color: .init(1, 1, 1, 1)
                 )
             }
@@ -96,16 +96,16 @@ class DancingBoidsView : ScreenSaverView {
             let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi) / 2
             return [
                 Transformation (
-                    translation: translation_matrix(dx: x, dy: y),
-                    rotation: matrix_from_rotation(theta: theta)
+                    rotation: matrix_from_rotation(theta: theta),
+                    translation: translation_matrix(dx: x, dy: y)
                 ),
                 Transformation (
-                    translation: translation_matrix(dx: x, dy: y),
-                    rotation: matrix_from_rotation(theta: theta)
+                    rotation: matrix_from_rotation(theta: theta),
+                    translation: translation_matrix(dx: x, dy: y)
                 ),
                 Transformation (
-                    translation: translation_matrix(dx: x, dy: y),
-                    rotation: matrix_from_rotation(theta: theta)
+                    rotation: matrix_from_rotation(theta: theta),
+                    translation: translation_matrix(dx: x, dy: y)
                 )
             ]
         }

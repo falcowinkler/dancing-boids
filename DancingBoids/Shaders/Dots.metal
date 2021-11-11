@@ -11,12 +11,13 @@ struct Transformation {
     float4x4 translation;
 };
 
-vertex Vertex vertex_main(const device Vertex *vertices [[buffer(0)]], constant Transformation *transformations [[buffer(1)]], uint vid [[vertex_id]])
+vertex Vertex vertex_main(const device Vertex *vertices [[buffer(0)]],
+                          const device Transformation *transformations [[buffer(1)]],
+                          uint vid [[vertex_id]])
 {
     Vertex vertexOut;
-    vertexOut.position = vertices[vid].position;
-    vertexOut.position = transformations[vid].rotation * vertexOut.position;
-    vertexOut.position = transformations[vid].translation * vertexOut.position;
+    vertexOut.position = vertices[vid].position * (transformations[vid].translation;
+
     vertexOut.color = vertices[vid].color;
     return vertexOut;
 }
