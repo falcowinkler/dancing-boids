@@ -16,7 +16,8 @@ vertex Vertex vertex_main(const device Vertex *vertices [[buffer(0)]],
                           uint vid [[vertex_id]])
 {
     Vertex vertexOut;
-    vertexOut.position = vertices[vid].position * transformations[vid].translation;
+    float4x4 transformation = transformations[vid].rotation * transformations[vid].translation;
+    vertexOut.position = vertices[vid].position * transformation;
 
     vertexOut.color = vertices[vid].color;
     return vertexOut;

@@ -27,7 +27,7 @@ class DancingBoidsView : ScreenSaverView {
 
     override init(frame: NSRect, isPreview: Bool) {
         flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 1,
+            flock: Flock(numberOfBoids: 100,
                          maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
             simulationParameters: FlockSimulationParameters(
                 fromDict:
@@ -80,7 +80,7 @@ class DancingBoidsView : ScreenSaverView {
         let vertexData: [Vertex] = positions.flatMap { (position) -> [Vertex] in
             let x: Float = 0
             let y: Float = 0
-            let triangleVertices = [(x,y - 0.1), (x-0.025,y), (x+0.025, y)]
+            let triangleVertices = [(x,y + 0.05), (x-0.025,y), (x+0.005, y)]
             return triangleVertices.map {
                 Vertex(
                     position: .init($0.0, $0.1, 0, 1),
@@ -96,16 +96,16 @@ class DancingBoidsView : ScreenSaverView {
             let theta = atan2(boid.velocity.y, boid.velocity.x) - Float(Double.pi) / 2
             return [
                 Transformation (
-                    rotation: matrix_from_rotation(theta: theta),
-                    translation: translation_matrix(dx: x, dy: y)
+                    rotation: rotationMatrix(theta: theta),
+                    translation: translationMatrix(dx: x, dy: y)
                 ),
                 Transformation (
-                    rotation: matrix_from_rotation(theta: theta),
-                    translation: translation_matrix(dx: x, dy: y)
+                    rotation: rotationMatrix(theta: theta),
+                    translation: translationMatrix(dx: x, dy: y)
                 ),
                 Transformation (
-                    rotation: matrix_from_rotation(theta: theta),
-                    translation: translation_matrix(dx: x, dy: y)
+                    rotation: rotationMatrix(theta: theta),
+                    translation: translationMatrix(dx: x, dy: y)
                 )
             ]
         }
@@ -149,22 +149,17 @@ class DancingBoidsView : ScreenSaverView {
 }
 
 
-func translation_matrix(dx: Float, dy: Float) -> simd_float4x4 {
+func translationMatrix(dx: Float, dy: Float) -> matrix_float4x4 {
     .init(.init(1, 0, 0, dx),
           .init(0, 1, 0, dy),
           .init(0, 0, 1, 0),
           .init(0, 0, 0, 1))
 }
 
-func  matrix_from_rotation(theta: Float) -> simd_float4x4
+func  rotationMatrix(theta: Float) -> simd_float4x4
 {
-    let rx: simd_float4x4 = .init(.init(1, 0, 0, 0),
-                                  .init(0, cos(theta), sin(theta), 0),
-                                  .init(0, -sin(theta), cos(theta), 0),
-                                  .init(0, 0, 0, 1))
-    let ry: simd_float4x4 = .init(.init(cos(theta), 0, -sin(theta), 0),
-                                  .init(0, 1, 0, 0),
-                                  .init(sin(theta), 0, cos(theta), 0),
-                                  .init(0, 0, 0, 1))
-    return rx*ry
+    return  .init(.init(cos(theta), -sin(theta), 0, 0),
+                  .init(sin(theta), cos(theta), 0, 0),
+                  .init(0, 0, 1, 0),
+                  .init(0, 0, 0, 1))
 }
