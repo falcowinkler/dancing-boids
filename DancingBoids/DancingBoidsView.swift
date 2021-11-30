@@ -88,6 +88,7 @@ class DancingBoidsView : ScreenSaverView {
                 )
             }
         }
+        
 
         let transformations = boids.flatMap { boid -> [Transformation] in
             let pos = normaliseCoord(boid: boid)
@@ -163,3 +164,9 @@ func  rotationMatrix(theta: Float) -> simd_float4x4
                   .init(0, 0, 1, 0),
                   .init(0, 0, 0, 1))
 }
+
+/*
+func rotationQ(theta: Float) -> simd_float4x4 {
+    return simd_float4x4(simd_quatf(angle: theta, axis: .init(0, 0, 1)).normalized)
+}
+*/

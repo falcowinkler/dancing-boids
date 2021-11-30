@@ -6,8 +6,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        window.setFrame(NSScreen.main!.visibleFrame, display: true)
-        let screenSaverView = DancingBoidsView(frame: (window.contentView?.bounds)!, isPreview: false)
+        let frame = NSRect(x: 0, y: 0, width: 792, height: 792)
+        window.setFrame(frame, display: true)
+        let screenSaverView = DancingBoidsView(frame: frame, isPreview: false)
         window.contentView?.addSubview(screenSaverView)
         screenSaverView.startAnimation()
     }
