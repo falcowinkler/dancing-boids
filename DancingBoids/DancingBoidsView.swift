@@ -24,17 +24,23 @@ class DancingBoidsView : ScreenSaverView {
     private var fragmentFunction: MTLFunction!
     private var vertexFunction: MTLFunction!
     private var pipelineState: MTLRenderPipelineState!
+    private let colors: [simd_float4]
 
     override init(frame: NSRect, isPreview: Bool) {
+        let size = 100
+
+        func rand() -> Float {
+            Float.random(in: 0.1...1)
+        }
         flockSim = FlockSimulation(
-            flock: Flock(numberOfBoids: 100,
+            flock: Flock(numberOfBoids: Int32(size),
                          maxX: Int32(frame.size.width), maxY: Int32(frame.size.height)),
             simulationParameters: FlockSimulationParameters(
                 fromDict:
                     ["maxX": Int(frame.size.width),
                      "maxY": Int(frame.size.height),
                     ]))
-
+        colors = (0...size).map { _ in simd_float4(rand(), rand(), rand(), 1) }
         super.init(frame: frame, isPreview: isPreview)!
     }
 
@@ -77,14 +83,16 @@ class DancingBoidsView : ScreenSaverView {
         }
         let boids = flockSim.currentFlock.boids
         let positions = boids.map(normaliseCoord)
-        let vertexData: [Vertex] = positions.flatMap { (position) -> [Vertex] in
+
+
+        let vertexData: [Vertex] = positions.enumerated().flatMap { (index, position) -> [Vertex] in
             let x: Float = 0
             let y: Float = 0
             let triangleVertices = [(x,y + 0.05), (x-0.025,y), (x+0.005, y)]
-            return triangleVertices.map {
+            return triangleVertices.map { vertex in
                 Vertex(
-                    position: .init($0.0, $0.1, 0, 1),
-                    color: .init(1, 1, 1, 1)
+                    position: .init(vertex.0, vertex.1, 0, 1),
+                    color: colors[index]
                 )
             }
         }
@@ -129,6 +137,7 @@ class DancingBoidsView : ScreenSaverView {
         let commandBuffer = commandQueue.makeCommandBuffer()!
         let renderEncoder = commandBuffer
             .makeRenderCommandEncoder(descriptor: renderPassDescriptor)!
+        renderEncoder.setViewport(MTLViewport(originX: 0, originY: 0, width: self.frame.width, height: self.frame.height, znear: 0, zfar: 1))
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder.setVertexBuffer(transformationBuffer, offset: 0, index: 1)
