@@ -19,19 +19,16 @@ struct Uniforms {
     let projectionMatrix: simd_float4x4
 }
 
-func matrix_float4x4_perspective(aspect: Float, fovy: Float, near: Float, far: Float) -> matrix_float4x4
-{
-    let aspectScale = 2 / ((aspect) - (-aspect));
-
-    let P = vector_float4(aspectScale, 0, 0, 0)
-    let Q = vector_float4(0, 1, 0, 0)
-    let R = vector_float4(0, 0, 1, 0)
-    let S = vector_float4(0, 0, 0, 1/aspect)
-
-    let mat = matrix_float4x4( P, Q, R, S );
-    return mat
+func buildProjectionMatrix(width: Float, height: Float) -> simd_float4x4 {
+    let aspect = width / height
+    let projectionMatrix = GLKMatrix4MakeOrtho(-aspect, aspect,
+                                               -1, 1,
+                                               -1, 1)
+    var modelViewMatrix = GLKMatrix4Identity
+    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, aspect, -aspect, 1.0)
+    let out = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix)
+    return simd_float4x4(matrix: out)
 }
-
 
 class DancingBoidsView : ScreenSaverView {
     private var frameCount = 0
@@ -92,7 +89,7 @@ class DancingBoidsView : ScreenSaverView {
         let drawableSize = drawingLayer.drawableSize
         let aspect = Float(drawableSize.width / drawableSize.height)
         let x = 2 * (boid.position.x / Float(drawableSize.width)) - 1
-        let y = ( 2 * (boid.position.y / Float(drawableSize.height)) - 1 ) / aspect
+        let y = (2 * (boid.position.y / Float(drawableSize.height)) - 1 ) / aspect
         return (x: x, y: y)
     }
 
@@ -108,7 +105,7 @@ class DancingBoidsView : ScreenSaverView {
         let vertexData: [Vertex] = positions.enumerated().flatMap { (index, position) -> [Vertex] in
             let x: Float = 0
             let y: Float = 0
-            let triangleVertices = [(x,y + 0.1), (x-0.025,y), (x+0.025, y)]
+            let triangleVertices = [(x,y + 0.05), (x-0.0125,y), (x+0.0125, y)]
             return triangleVertices.map { vertex in
                 Vertex(
                     position: .init(vertex.0, vertex.1, 0, 1),
@@ -145,11 +142,10 @@ class DancingBoidsView : ScreenSaverView {
         let transformationBuffer = device.makeBuffer(bytes: transformations, length: transformations.count * MemoryLayout<Transformation>.stride, options: [])
 
         let drawableSize = drawingLayer.drawableSize
-        let aspect = drawableSize.width / drawableSize.height;
-        let fov = (2 * Double.pi) / 5;
-        let near = 0.0
-        let far = 1.0
-        let projectionMatrix = matrix_float4x4_perspective(aspect: Float(aspect), fovy: Float(fov), near: Float(near), far: Float(far))
+        let projectionMatrix = buildProjectionMatrix(
+            width: Float(drawableSize.width),
+            height: Float(drawableSize.height)
+        )
 
         var union = Uniforms(projectionMatrix: projectionMatrix)
         let unionsBuffer = device.makeBuffer(bytes: &union, length: MemoryLayout<Uniforms>.stride, options: [])
@@ -205,8 +201,12 @@ func  rotationMatrix(theta: Float) -> simd_float4x4
                   .init(0, 0, 0, 1))
 }
 
-/*
-func rotationQ(theta: Float) -> simd_float4x4 {
-    return simd_float4x4(simd_quatf(angle: theta, axis: .init(0, 0, 1)).normalized)
+extension simd_float4x4 {
+    init(matrix m: GLKMatrix4) {
+        self.init(columns: (
+            simd_float4(x: m.m00, y: m.m01, z: m.m02, w: m.m03),
+            simd_float4(x: m.m10, y: m.m11, z: m.m12, w: m.m13),
+            simd_float4(x: m.m20, y: m.m21, z: m.m22, w: m.m23),
+            simd_float4(x: m.m30, y: m.m31, z: m.m32, w: m.m33)))
+    }
 }
-*/

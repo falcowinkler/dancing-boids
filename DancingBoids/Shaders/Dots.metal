@@ -28,8 +28,5 @@ vertex Vertex vertex_main(const device Vertex *vertices [[buffer(0)]],
 }
 
 fragment float4 fragment_main(Vertex inVertex [[stage_in]]) {
-    if (inVertex.position.y > 200) {
-        return float4(1, 1, 1, 1);
-    }
     return inVertex.color;
 }
