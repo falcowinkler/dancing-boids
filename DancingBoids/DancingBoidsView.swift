@@ -15,6 +15,24 @@ struct Transformation {
     let translation: simd_float4x4
 }
 
+struct Uniforms {
+    let projectionMatrix: simd_float4x4
+}
+
+func matrix_float4x4_perspective(aspect: Float, fovy: Float, near: Float, far: Float) -> matrix_float4x4
+{
+    let aspectScale = 2 / ((aspect) - (-aspect));
+
+    let P = vector_float4(aspectScale, 0, 0, 0)
+    let Q = vector_float4(0, 1, 0, 0)
+    let R = vector_float4(0, 0, 1, 0)
+    let S = vector_float4(0, 0, 0, 1/aspect)
+
+    let mat = matrix_float4x4( P, Q, R, S );
+    return mat
+}
+
+
 class DancingBoidsView : ScreenSaverView {
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
@@ -71,8 +89,10 @@ class DancingBoidsView : ScreenSaverView {
 
     func normaliseCoord(boid: Boid) -> (x: Float, y: Float)  {
         // TODO: make the library capable of dealing with -1, 1 coordinate space
-        let x = 2 * (boid.position.x / Float(frame.size.width)) - 1
-        let y = 2 * (boid.position.y / Float(frame.size.height)) - 1
+        let drawableSize = drawingLayer.drawableSize
+        let aspect = Float(drawableSize.width / drawableSize.height)
+        let x = 2 * (boid.position.x / Float(drawableSize.width)) - 1
+        let y = ( 2 * (boid.position.y / Float(drawableSize.height)) - 1 ) / aspect
         return (x: x, y: y)
     }
 
@@ -88,7 +108,7 @@ class DancingBoidsView : ScreenSaverView {
         let vertexData: [Vertex] = positions.enumerated().flatMap { (index, position) -> [Vertex] in
             let x: Float = 0
             let y: Float = 0
-            let triangleVertices = [(x,y + 0.05), (x-0.025,y), (x+0.005, y)]
+            let triangleVertices = [(x,y + 0.1), (x-0.025,y), (x+0.025, y)]
             return triangleVertices.map { vertex in
                 Vertex(
                     position: .init(vertex.0, vertex.1, 0, 1),
@@ -124,6 +144,16 @@ class DancingBoidsView : ScreenSaverView {
 
         let transformationBuffer = device.makeBuffer(bytes: transformations, length: transformations.count * MemoryLayout<Transformation>.stride, options: [])
 
+        let drawableSize = drawingLayer.drawableSize
+        let aspect = drawableSize.width / drawableSize.height;
+        let fov = (2 * Double.pi) / 5;
+        let near = 0.0
+        let far = 1.0
+        let projectionMatrix = matrix_float4x4_perspective(aspect: Float(aspect), fovy: Float(fov), near: Float(near), far: Float(far))
+
+        var union = Uniforms(projectionMatrix: projectionMatrix)
+        let unionsBuffer = device.makeBuffer(bytes: &union, length: MemoryLayout<Uniforms>.stride, options: [])
+
         let commandQueue = device.makeCommandQueue()!
         let drawable = drawingLayer.nextDrawable()!
         let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -141,6 +171,7 @@ class DancingBoidsView : ScreenSaverView {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder.setVertexBuffer(transformationBuffer, offset: 0, index: 1)
+        renderEncoder.setVertexBuffer(unionsBuffer, offset: 0, index: 2)
         renderEncoder
             .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count)
         renderEncoder.endEncoding()

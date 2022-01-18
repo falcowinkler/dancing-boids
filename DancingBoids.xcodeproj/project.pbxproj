@@ -667,7 +667,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:falcowinkler/flockingbird-swift.git";
 			requirement = {
-				branch = master;
+				branch = main;
 				kind = branch;
 			};
 		};
