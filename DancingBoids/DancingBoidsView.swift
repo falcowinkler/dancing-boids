@@ -163,7 +163,6 @@ class DancingBoidsView : ScreenSaverView {
         let commandBuffer = commandQueue.makeCommandBuffer()!
         let renderEncoder = commandBuffer
             .makeRenderCommandEncoder(descriptor: renderPassDescriptor)!
-        renderEncoder.setViewport(MTLViewport(originX: 0, originY: 0, width: self.frame.width, height: self.frame.height, znear: 0, zfar: 1))
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder.setVertexBuffer(transformationBuffer, offset: 0, index: 1)
