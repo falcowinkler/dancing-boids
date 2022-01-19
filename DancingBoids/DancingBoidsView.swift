@@ -30,16 +30,16 @@ func buildProjectionMatrix(width: Float, height: Float) -> simd_float4x4 {
     return simd_float4x4(matrix: out)
 }
 
-class DancingBoidsView : ScreenSaverView {
+class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
     private let flockSim: FlockSimulation
-    private var drawingLayer: CAMetalLayer!
     private var device: MTLDevice!
     private var fragmentFunction: MTLFunction!
     private var vertexFunction: MTLFunction!
     private var pipelineState: MTLRenderPipelineState!
     private let colors: [simd_float4]
+    private var mtkView: MTKView!
 
     override init(frame: NSRect, isPreview: Bool) {
         let size = 100
@@ -57,27 +57,35 @@ class DancingBoidsView : ScreenSaverView {
                     ]))
         colors = (0...size).map { _ in simd_float4(rand(), rand(), rand(), 1) }
         super.init(frame: frame, isPreview: isPreview)!
+
+        guard let device = MTLCreateSystemDefaultDevice() else {
+            fatalError("Metal is not supported on this device")
+        }
+
+        self.device = device
+
+        self.mtkView = MTKView(frame: self.frame, device: device)
+        self.mtkView.colorPixelFormat = .bgra8Unorm
+        self.mtkView.framebufferOnly = true
+        self.addSubview(mtkView)
+        mtkView.delegate = self
+    }
+
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+        // TODO adjust aspect ratio
     }
 
     override func startAnimation() {
         super.startAnimation()
-        self.device = MTLCreateSystemDefaultDevice()!
-        let layer = CAMetalLayer()
-        layer.device = device
-        layer.pixelFormat = .bgra8Unorm
-        layer.framebufferOnly = true
-        layer.frame = self.frame
-
         let defaultLibrary = device.makeDefaultLibrary()!
         self.fragmentFunction = defaultLibrary.makeFunction(name: "fragment_main")
         self.vertexFunction = defaultLibrary.makeFunction(name: "vertex_main")
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
         pipelineStateDescriptor.vertexFunction = self.vertexFunction
         pipelineStateDescriptor.fragmentFunction = self.fragmentFunction
-        pipelineStateDescriptor.colorAttachments[0].pixelFormat = layer.pixelFormat
+        pipelineStateDescriptor.colorAttachments[0].pixelFormat = self.mtkView.colorPixelFormat
 
         self.pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
-        self.drawingLayer = layer
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -86,18 +94,13 @@ class DancingBoidsView : ScreenSaverView {
 
     func normaliseCoord(boid: Boid) -> (x: Float, y: Float)  {
         // TODO: make the library capable of dealing with -1, 1 coordinate space
-        let drawableSize = drawingLayer.drawableSize
-        let aspect = Float(drawableSize.width / drawableSize.height)
-        let x = 2 * (boid.position.x / Float(drawableSize.width)) - 1
-        let y = (2 * (boid.position.y / Float(drawableSize.height)) - 1 ) / aspect
+        let aspect = Float(self.frame.width / self.frame.height)
+        let x = 2 * (boid.position.x / Float(self.frame.width)) - 1
+        let y = (2 * (boid.position.y / Float(self.frame.height)) - 1 ) / aspect
         return (x: x, y: y)
     }
 
-    override func draw(_ rect: NSRect) {
-        // TODO: when to add the layer? (when is self.layer != nil?)
-        if self.layer!.sublayers == nil {
-            self.layer?.addSublayer(self.drawingLayer)
-        }
+    func draw(in view: MTKView) {
         let boids = flockSim.currentFlock.boids
         let positions = boids.map(normaliseCoord)
 
@@ -141,17 +144,16 @@ class DancingBoidsView : ScreenSaverView {
 
         let transformationBuffer = device.makeBuffer(bytes: transformations, length: transformations.count * MemoryLayout<Transformation>.stride, options: [])
 
-        let drawableSize = drawingLayer.drawableSize
         let projectionMatrix = buildProjectionMatrix(
-            width: Float(drawableSize.width),
-            height: Float(drawableSize.height)
+            width: Float(self.frame.width),
+            height: Float(self.frame.height)
         )
 
         var union = Uniforms(projectionMatrix: projectionMatrix)
         let unionsBuffer = device.makeBuffer(bytes: &union, length: MemoryLayout<Uniforms>.stride, options: [])
 
         let commandQueue = device.makeCommandQueue()!
-        let drawable = drawingLayer.nextDrawable()!
+        let drawable = self.mtkView.currentDrawable!
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = drawable.texture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear

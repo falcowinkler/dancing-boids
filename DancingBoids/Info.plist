@@ -23,6 +23,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSPrincipalClass</key>
-	<string>MySaverView</string>
+	<string>DancingBoids.DancingBoidsView</string>
 </dict>
 </plist>
