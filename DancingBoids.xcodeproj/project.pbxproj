@@ -8,19 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
-		59B6D699270386080027FFDD /* MetalDrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D698270386070027FFDD /* MetalDrawingDelegate.swift */; };
-		59B6D69A270386820027FFDD /* MetalDrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D698270386070027FFDD /* MetalDrawingDelegate.swift */; };
 		59B6D69D270386FE0027FFDD /* Dots.metal in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D69C270386FE0027FFDD /* Dots.metal */; };
 		59B6D69E2703B8140027FFDD /* Dots.metal in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D69C270386FE0027FFDD /* Dots.metal */; };
-		59BB90BA267938B7002DE51D /* ScreenSaverViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BB90B9267938B7002DE51D /* ScreenSaverViewDelegate.swift */; };
-		59BB90BC26793931002DE51D /* FlockingScreenSaverViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BB90BB26793931002DE51D /* FlockingScreenSaverViewDelegate.swift */; };
-		59BB90BD26793A0F002DE51D /* FlockingScreenSaverViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BB90BB26793931002DE51D /* FlockingScreenSaverViewDelegate.swift */; };
-		59BB90BE26793A0F002DE51D /* ScreenSaverViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BB90B9267938B7002DE51D /* ScreenSaverViewDelegate.swift */; };
 		59C97A012746EE7F0067125B /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 59C97A002746EE7F0067125B /* Flockingbird */; };
 		59C97A032746EEB10067125B /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 59C97A022746EEB10067125B /* Flockingbird */; };
 		59DCE4CD25BDF29100665E40 /* DancingBoidsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */; };
-		59FF1409267FD7E000A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FF1408267FD7E000A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift */; };
-		59FF140A267FD7E400A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FF1408267FD7E000A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift */; };
 		ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD891831DC38B790019C16F /* AppDelegate.swift */; };
 		ACD891861DC38B790019C16F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD891851DC38B790019C16F /* Assets.xcassets */; };
 		ACD891891DC38B790019C16F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD891871DC38B790019C16F /* MainMenu.xib */; };
@@ -41,14 +33,10 @@
 		03A485181B644145008A2D6A /* DancingBoids.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoids.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A4851C1B644145008A2D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A485261B644187008A2D6A /* DancingBoidsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancingBoidsView.swift; sourceTree = "<group>"; };
-		59B6D698270386070027FFDD /* MetalDrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalDrawingDelegate.swift; sourceTree = "<group>"; };
 		59B6D69C270386FE0027FFDD /* Dots.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Dots.metal; sourceTree = "<group>"; };
-		59BB90B9267938B7002DE51D /* ScreenSaverViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSaverViewDelegate.swift; sourceTree = "<group>"; };
-		59BB90BB26793931002DE51D /* FlockingScreenSaverViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlockingScreenSaverViewDelegate.swift; sourceTree = "<group>"; };
 		59DCE4CA25BDF29100665E40 /* DancingBoidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DancingBoidsTests.swift; sourceTree = "<group>"; };
 		59DCE4CE25BDF29100665E40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		59FF1408267FD7E000A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminecentBoidsScreenSaverViewDeletgate.swift; sourceTree = "<group>"; };
 		ACD891811DC38B790019C16F /* ScreenSaverTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenSaverTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD891831DC38B790019C16F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD891851DC38B790019C16F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -108,22 +96,10 @@
 			isa = PBXGroup;
 			children = (
 				59B6D69B270386E50027FFDD /* Shaders */,
-				594DB2C52679D487003C4BBC /* ScreenSaverDelegates */,
 				03A485261B644187008A2D6A /* DancingBoidsView.swift */,
-				59BB90B9267938B7002DE51D /* ScreenSaverViewDelegate.swift */,
 				03A4851C1B644145008A2D6A /* Info.plist */,
 			);
 			path = DancingBoids;
-			sourceTree = "<group>";
-		};
-		594DB2C52679D487003C4BBC /* ScreenSaverDelegates */ = {
-			isa = PBXGroup;
-			children = (
-				59FF1408267FD7E000A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift */,
-				59BB90BB26793931002DE51D /* FlockingScreenSaverViewDelegate.swift */,
-				59B6D698270386070027FFDD /* MetalDrawingDelegate.swift */,
-			);
-			path = ScreenSaverDelegates;
 			sourceTree = "<group>";
 		};
 		59B6D69B270386E50027FFDD /* Shaders */ = {
@@ -314,10 +290,6 @@
 			files = (
 				03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */,
 				59B6D69D270386FE0027FFDD /* Dots.metal in Sources */,
-				59B6D699270386080027FFDD /* MetalDrawingDelegate.swift in Sources */,
-				59BB90BC26793931002DE51D /* FlockingScreenSaverViewDelegate.swift in Sources */,
-				59BB90BA267938B7002DE51D /* ScreenSaverViewDelegate.swift in Sources */,
-				59FF1409267FD7E000A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,11 +307,7 @@
 			files = (
 				ACD8918E1DC38C4B0019C16F /* DancingBoidsView.swift in Sources */,
 				59B6D69E2703B8140027FFDD /* Dots.metal in Sources */,
-				59BB90BD26793A0F002DE51D /* FlockingScreenSaverViewDelegate.swift in Sources */,
 				ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */,
-				59B6D69A270386820027FFDD /* MetalDrawingDelegate.swift in Sources */,
-				59BB90BE26793A0F002DE51D /* ScreenSaverViewDelegate.swift in Sources */,
-				59FF140A267FD7E400A654BE /* LuminecentBoidsScreenSaverViewDeletgate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
