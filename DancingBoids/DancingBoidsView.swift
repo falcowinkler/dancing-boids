@@ -61,8 +61,7 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
         }
 
         self.device = device
-
-        self.mtkView = MTKView(frame: self.frame, device: device)
+        self.mtkView = MTKView(frame: frame, device: device)
         self.mtkView.colorPixelFormat = .bgra8Unorm
         self.mtkView.framebufferOnly = true
         self.addSubview(mtkView)
@@ -75,7 +74,11 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
 
     override func startAnimation() {
         super.startAnimation()
-        let defaultLibrary = device.makeDefaultLibrary()!
+        let bundle = Bundle(for: DancingBoidsView.self)
+        let defaultLibrary = (
+            try? device.makeDefaultLibrary(bundle: bundle)) ??
+        device.makeDefaultLibrary()!
+
         self.fragmentFunction = defaultLibrary.makeFunction(name: "fragment_main")
         self.vertexFunction = defaultLibrary.makeFunction(name: "vertex_main")
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
