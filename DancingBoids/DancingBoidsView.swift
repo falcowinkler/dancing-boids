@@ -1,8 +1,6 @@
 import ScreenSaver
 import Flockingbird
-import Metal
 import MetalKit
-import simd
 import GLKit
 
 struct Vertex {
