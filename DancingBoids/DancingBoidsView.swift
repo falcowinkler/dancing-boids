@@ -32,7 +32,6 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
     private let flockSim: FlockSimulation
-    private var device: MTLDevice!
     private var fragmentFunction: MTLFunction!
     private var vertexFunction: MTLFunction!
     private var pipelineState: MTLRenderPipelineState!
@@ -60,20 +59,12 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
             fatalError("Metal is not supported on this device")
         }
 
-        self.device = device
         self.mtkView = MTKView(frame: frame, device: device)
         self.mtkView.colorPixelFormat = .bgra8Unorm
         self.mtkView.framebufferOnly = true
         self.addSubview(mtkView)
         mtkView.delegate = self
-    }
 
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        // TODO adjust aspect ratio
-    }
-
-    override func startAnimation() {
-        super.startAnimation()
         let bundle = Bundle(for: DancingBoidsView.self)
         let defaultLibrary = (
             try? device.makeDefaultLibrary(bundle: bundle)) ??
@@ -88,6 +79,11 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
 
         self.pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
     }
+
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+        // TODO adjust aspect ratio
+    }
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("no storyboards")
@@ -104,7 +100,7 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
     func draw(in view: MTKView) {
         let boids = flockSim.currentFlock.boids
         let positions = boids.map(normaliseCoord)
-
+        let device = view.device!
 
         let vertexData: [Vertex] = positions.enumerated().flatMap { (index, position) -> [Vertex] in
             let x: Float = 0
