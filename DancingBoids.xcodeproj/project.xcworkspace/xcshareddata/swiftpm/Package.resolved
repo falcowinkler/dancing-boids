@@ -5,9 +5,9 @@
         "package": "flockingbird-swift",
         "repositoryURL": "git@github.com:falcowinkler/flockingbird-swift.git",
         "state": {
-          "branch": null,
-          "revision": "25344d43cbb1bc34fff0e2728f60aa7f8d0beb0a",
-          "version": "0.0.6-beta"
+          "branch": "main",
+          "revision": "9d75a1d31e9c664f16cfade7683273d759046c7f",
+          "version": null
         }
       }
     ]
