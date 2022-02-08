@@ -39,7 +39,6 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
 
     func draw(in view: MTKView) {
         self.currentDelegate.draw(view: view)
-        self.drawFadeOverlay()
     }
 
     override func animateOneFrame() {
