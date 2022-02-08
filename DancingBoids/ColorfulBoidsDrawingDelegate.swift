@@ -115,7 +115,6 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
         )
 
         var union = Uniforms(projectionMatrix: projectionMatrix)
-        let unionsBuffer = device.makeBuffer(bytes: &union, length: MemoryLayout<Uniforms>.stride, options: [])
 
         let commandQueue = device.makeCommandQueue()!
         let drawable = view.currentDrawable!
@@ -133,7 +132,7 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder.setVertexBuffer(transformationBuffer, offset: 0, index: 1)
-        renderEncoder.setVertexBuffer(unionsBuffer, offset: 0, index: 2)
+        renderEncoder.setVertexBytes(&union, length: MemoryLayout<Uniforms>.stride, index: 2)
         renderEncoder
             .drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count)
         renderEncoder.endEncoding()
