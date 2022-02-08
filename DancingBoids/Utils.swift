@@ -36,3 +36,14 @@ func normaliseCoord(frame: CGRect, boid: Boid) -> (x: Float, y: Float)  {
     let y = (2 * (boid.position.y / Float(frame.height)) - 1) / aspect
     return (x: x, y: y)
 }
+
+func buildProjectionMatrix(width: Float, height: Float) -> simd_float4x4 {
+    let aspect = width / height
+    let projectionMatrix = GLKMatrix4MakeOrtho(-aspect, aspect,
+                                                -1, 1,
+                                                -1, 1)
+    var modelViewMatrix = GLKMatrix4Identity
+    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, aspect, -aspect, 1.0)
+    let out = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix)
+    return simd_float4x4(matrix: out)
+}

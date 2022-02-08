@@ -3,31 +3,6 @@ import Flockingbird
 import MetalKit
 import GLKit
 
-struct Vertex {
-    let position: simd_float4
-    let color: simd_float4
-}
-
-struct Transformation {
-    let rotation: simd_float4x4
-    let translation: simd_float4x4
-}
-
-struct Uniforms {
-    let projectionMatrix: simd_float4x4
-}
-
-func buildProjectionMatrix(width: Float, height: Float) -> simd_float4x4 {
-    let aspect = width / height
-    let projectionMatrix = GLKMatrix4MakeOrtho(-aspect, aspect,
-                                               -1, 1,
-                                               -1, 1)
-    var modelViewMatrix = GLKMatrix4Identity
-    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, aspect, -aspect, 1.0)
-    let out = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix)
-    return simd_float4x4(matrix: out)
-}
-
 class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
     private var frameCount = 0
     private var switchDelegateAfterNumberOfFrames = 30 * 30
@@ -75,8 +50,5 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
             self.swapDelegate()
         }
         setNeedsDisplay(bounds)
-    }
-
-    private func drawFadeOverlay() {
     }
 }

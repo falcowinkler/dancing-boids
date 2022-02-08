@@ -1,6 +1,22 @@
 import Metal
 import MetalKit
 import Flockingbird
+
+struct Vertex {
+    let position: simd_float4
+    let color: simd_float4
+}
+
+struct Transformation {
+    let rotation: simd_float4x4
+    let translation: simd_float4x4
+}
+
+struct Uniforms {
+    let projectionMatrix: simd_float4x4
+}
+
+
 struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
     private let flockSim: FlockSimulation
     private var fragmentFunction: MTLFunction!
