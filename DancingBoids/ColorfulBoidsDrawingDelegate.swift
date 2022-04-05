@@ -29,8 +29,8 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
         let size = 100
         self.frame = frame
 
-        func rand() -> Float {
-            Float.random(in: 0.1...1)
+        func rand(_ start: Float = 0.1, _ end: Float = 1) -> Float {
+            Float.random(in: start...end)
         }
         flockSim = FlockSimulation(
             flock: Flock(numberOfBoids: Int32(size),
@@ -40,7 +40,7 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
                     ["maxX": Int(frame.size.width),
                      "maxY": Int(frame.size.height),
                     ]))
-        colors = (0...size).map { _ in simd_float4(rand(), rand(), rand(), 1) }
+        colors = (0...size).map { _ in simd_float4(rand(0, 0.3), rand(0.1, 0.3), 1, 1) }
 
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("Metal is not supported on this device")
