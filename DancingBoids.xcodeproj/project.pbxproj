@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
+		5970ED5E27FCC3CE00890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
+		5970ED5F27FCC57500890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
 		59B6D69D270386FE0027FFDD /* Dots.metal in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D69C270386FE0027FFDD /* Dots.metal */; };
 		59B6D69E2703B8140027FFDD /* Dots.metal in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D69C270386FE0027FFDD /* Dots.metal */; };
 		59C97A012746EE7F0067125B /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 59C97A002746EE7F0067125B /* Flockingbird */; };
@@ -19,6 +21,8 @@
 		59E47E7A27B2422800EC7255 /* DrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E47E7427B18C7800EC7255 /* DrawingDelegate.swift */; };
 		59E47E7B27B2423900EC7255 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E47E7827B18FD700EC7255 /* Utils.swift */; };
 		59E47E7C27B2424200EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E47E7627B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift */; };
+		59F289EE27FF671D00188373 /* current_tag.txt in Resources */ = {isa = PBXBuildFile; fileRef = 59F289ED27FF671D00188373 /* current_tag.txt */; };
+		59F289EF27FF671D00188373 /* current_tag.txt in Resources */ = {isa = PBXBuildFile; fileRef = 59F289ED27FF671D00188373 /* current_tag.txt */; };
 		ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD891831DC38B790019C16F /* AppDelegate.swift */; };
 		ACD891861DC38B790019C16F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD891851DC38B790019C16F /* Assets.xcassets */; };
 		ACD891891DC38B790019C16F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD891871DC38B790019C16F /* MainMenu.xib */; };
@@ -39,6 +43,7 @@
 		03A485181B644145008A2D6A /* DancingBoids.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoids.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A4851C1B644145008A2D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A485261B644187008A2D6A /* DancingBoidsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancingBoidsView.swift; sourceTree = "<group>"; };
+		5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAvailableView.swift; sourceTree = "<group>"; };
 		59B6D69C270386FE0027FFDD /* Dots.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Dots.metal; sourceTree = "<group>"; };
 		59DCE4CA25BDF29100665E40 /* DancingBoidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DancingBoidsTests.swift; sourceTree = "<group>"; };
@@ -46,6 +51,7 @@
 		59E47E7427B18C7800EC7255 /* DrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingDelegate.swift; sourceTree = "<group>"; };
 		59E47E7627B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorfulBoidsDrawingDelegate.swift; sourceTree = "<group>"; };
 		59E47E7827B18FD700EC7255 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		59F289ED27FF671D00188373 /* current_tag.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = current_tag.txt; sourceTree = "<group>"; };
 		ACD891811DC38B790019C16F /* ScreenSaverTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenSaverTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD891831DC38B790019C16F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD891851DC38B790019C16F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +116,8 @@
 				59E47E7427B18C7800EC7255 /* DrawingDelegate.swift */,
 				59E47E7627B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift */,
 				59E47E7827B18FD700EC7255 /* Utils.swift */,
+				5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */,
+				59F289ED27FF671D00188373 /* current_tag.txt */,
 			);
 			path = DancingBoids;
 			sourceTree = "<group>";
@@ -274,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F289EE27FF671D00188373 /* current_tag.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACD891861DC38B790019C16F /* Assets.xcassets in Resources */,
+				59F289EF27FF671D00188373 /* current_tag.txt in Resources */,
 				ACD891891DC38B790019C16F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +313,7 @@
 				59E47E7927B18FD700EC7255 /* Utils.swift in Sources */,
 				59E47E7527B18C7800EC7255 /* DrawingDelegate.swift in Sources */,
 				03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */,
+				5970ED5E27FCC3CE00890A41 /* UpdateAvailableView.swift in Sources */,
 				59E47E7727B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */,
 				59B6D69D270386FE0027FFDD /* Dots.metal in Sources */,
 			);
@@ -321,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59E47E7B27B2423900EC7255 /* Utils.swift in Sources */,
+				5970ED5F27FCC57500890A41 /* UpdateAvailableView.swift in Sources */,
 				ACD8918E1DC38C4B0019C16F /* DancingBoidsView.swift in Sources */,
 				59E47E7C27B2424200EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */,
 				59B6D69E2703B8140027FFDD /* Dots.metal in Sources */,
@@ -397,7 +409,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -445,7 +457,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -468,7 +480,8 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -492,7 +505,8 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -577,7 +591,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -600,7 +614,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netlight.DancingBoids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

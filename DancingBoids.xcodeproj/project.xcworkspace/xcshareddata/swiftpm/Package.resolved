@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "flockingbird-swift",
-        "repositoryURL": "git@github.com:falcowinkler/flockingbird-swift.git",
-        "state": {
-          "branch": "main",
-          "revision": "9d75a1d31e9c664f16cfade7683273d759046c7f",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "flockingbird-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:falcowinkler/flockingbird-swift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9d75a1d31e9c664f16cfade7683273d759046c7f"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

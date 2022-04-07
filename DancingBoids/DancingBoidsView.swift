@@ -24,6 +24,15 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
         self.mtkView.colorPixelFormat = .bgra8Unorm
         self.mtkView.framebufferOnly = true
         self.addSubview(mtkView)
+        let updateAvailableView = UpdateAvailableView(
+            frame: .init(origin: .zero, size: .init(width: mtkView.frame.width, height: 44))
+        )
+
+        self.addSubview(updateAvailableView, positioned: .above, relativeTo: mtkView)
+
+        updateAvailableView.translatesAutoresizingMaskIntoConstraints = false
+        updateAvailableView.bottomAnchor.constraint(equalTo: mtkView.bottomAnchor).isActive = true
+        updateAvailableView.leftAnchor.constraint(equalTo: mtkView.leftAnchor).isActive = true
         mtkView.delegate = self
         self.swapDelegate()
     }
