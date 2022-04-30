@@ -9,6 +9,8 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
     private var mtkView: MTKView!
     private var drawingDelegates: [DrawingDelegate.Type] = [ColorfulBoidsDrawingDelegate.self]
     private var currentDelegate: DrawingDelegate!
+    lazy var sheetController: ConfigureSheetController = ConfigureSheetController()
+    private var overlayWindow: NSBox!
 
     private func swapDelegate() {
         self.currentDelegate = drawingDelegates.randomElement()!.init(frame: frame, isPreview: isPreview, mtkView: self.mtkView)
@@ -23,7 +25,15 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
         self.mtkView = MTKView(frame: frame, device: device)
         self.mtkView.colorPixelFormat = .bgra8Unorm
         self.mtkView.framebufferOnly = true
+        mtkView.alphaValue = 0
         self.addSubview(mtkView)
+        setupUpdateAvailableView()
+        mtkView.delegate = self
+        self.swapDelegate()
+    }
+
+
+    private func setupUpdateAvailableView() {
         let updateAvailableView = UpdateAvailableView(
             frame: .init(origin: .zero, size: .init(width: mtkView.frame.width, height: 44))
         )
@@ -33,8 +43,6 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
         updateAvailableView.translatesAutoresizingMaskIntoConstraints = false
         updateAvailableView.bottomAnchor.constraint(equalTo: mtkView.bottomAnchor).isActive = true
         updateAvailableView.leftAnchor.constraint(equalTo: mtkView.leftAnchor).isActive = true
-        mtkView.delegate = self
-        self.swapDelegate()
     }
 
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
@@ -57,6 +65,22 @@ class DancingBoidsView : ScreenSaverView, MTKViewDelegate {
         if frameCount == 0 {
             self.swapDelegate()
         }
+        let animationSeconds = 5
+        let animationFrames = 30 * animationSeconds
+        if frameCount < animationFrames {
+            mtkView.alphaValue = CGFloat(frameCount) / CGFloat(animationFrames)
+        }
+        if switchDelegateAfterNumberOfFrames - frameCount < animationFrames {
+            mtkView.alphaValue = CGFloat(switchDelegateAfterNumberOfFrames - frameCount) / CGFloat(animationFrames)
+        }
         setNeedsDisplay(bounds)
+    }
+
+    override var configureSheet: NSWindow? {
+        sheetController.window
+    }
+
+    override var hasConfigureSheet: Bool {
+        true
     }
 }

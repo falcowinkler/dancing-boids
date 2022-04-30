@@ -10,6 +10,14 @@
 		03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
 		5970ED5E27FCC3CE00890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
 		5970ED5F27FCC57500890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
+		5983DEA9281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */; };
+		5983DEAA281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */; };
+		59849B72281DBA7100C52071 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59849B71281DBA7100C52071 /* ConfigureSheet.xib */; };
+		59849B74281DBAF400C52071 /* CheckForUpdatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59849B73281DBAF400C52071 /* CheckForUpdatesService.swift */; };
+		59849B75281DBAF400C52071 /* CheckForUpdatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59849B73281DBAF400C52071 /* CheckForUpdatesService.swift */; };
+		59849B76281DD1EF00C52071 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59849B71281DBA7100C52071 /* ConfigureSheet.xib */; };
+		59849B78281DD35300C52071 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59849B77281DD35300C52071 /* DefaultsManager.swift */; };
+		59849B79281DD35300C52071 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59849B77281DD35300C52071 /* DefaultsManager.swift */; };
 		59B6D69D270386FE0027FFDD /* Dots.metal in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D69C270386FE0027FFDD /* Dots.metal */; };
 		59B6D69E2703B8140027FFDD /* Dots.metal in Sources */ = {isa = PBXBuildFile; fileRef = 59B6D69C270386FE0027FFDD /* Dots.metal */; };
 		59C97A012746EE7F0067125B /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 59C97A002746EE7F0067125B /* Flockingbird */; };
@@ -44,6 +52,10 @@
 		03A4851C1B644145008A2D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A485261B644187008A2D6A /* DancingBoidsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancingBoidsView.swift; sourceTree = "<group>"; };
 		5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAvailableView.swift; sourceTree = "<group>"; };
+		5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSheetViewController.swift; sourceTree = "<group>"; };
+		59849B71281DBA7100C52071 /* ConfigureSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
+		59849B73281DBAF400C52071 /* CheckForUpdatesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForUpdatesService.swift; sourceTree = "<group>"; };
+		59849B77281DD35300C52071 /* DefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		59B6D69C270386FE0027FFDD /* Dots.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Dots.metal; sourceTree = "<group>"; };
 		59DCE4CA25BDF29100665E40 /* DancingBoidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DCE4CC25BDF29100665E40 /* DancingBoidsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DancingBoidsTests.swift; sourceTree = "<group>"; };
@@ -110,16 +122,36 @@
 		03A4851A1B644145008A2D6A /* DancingBoids */ = {
 			isa = PBXGroup;
 			children = (
+				59849B73281DBAF400C52071 /* CheckForUpdatesService.swift */,
+				59849B7B281DD36D00C52071 /* UpdateAvailableNotifier */,
+				59849B7A281DD35800C52071 /* ConfigureSheet */,
 				59B6D69B270386E50027FFDD /* Shaders */,
 				03A485261B644187008A2D6A /* DancingBoidsView.swift */,
 				03A4851C1B644145008A2D6A /* Info.plist */,
 				59E47E7427B18C7800EC7255 /* DrawingDelegate.swift */,
 				59E47E7627B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift */,
 				59E47E7827B18FD700EC7255 /* Utils.swift */,
-				5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */,
 				59F289ED27FF671D00188373 /* current_tag.txt */,
 			);
 			path = DancingBoids;
+			sourceTree = "<group>";
+		};
+		59849B7A281DD35800C52071 /* ConfigureSheet */ = {
+			isa = PBXGroup;
+			children = (
+				59849B71281DBA7100C52071 /* ConfigureSheet.xib */,
+				5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */,
+				59849B77281DD35300C52071 /* DefaultsManager.swift */,
+			);
+			path = ConfigureSheet;
+			sourceTree = "<group>";
+		};
+		59849B7B281DD36D00C52071 /* UpdateAvailableNotifier */ = {
+			isa = PBXGroup;
+			children = (
+				5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */,
+			);
+			path = UpdateAvailableNotifier;
 			sourceTree = "<group>";
 		};
 		59B6D69B270386E50027FFDD /* Shaders */ = {
@@ -282,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59849B72281DBA7100C52071 /* ConfigureSheet.xib in Resources */,
 				59F289EE27FF671D00188373 /* current_tag.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +332,7 @@
 			files = (
 				ACD891861DC38B790019C16F /* Assets.xcassets in Resources */,
 				59F289EF27FF671D00188373 /* current_tag.txt in Resources */,
+				59849B76281DD1EF00C52071 /* ConfigureSheet.xib in Resources */,
 				ACD891891DC38B790019C16F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,11 +344,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5983DEA9281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */,
 				59E47E7927B18FD700EC7255 /* Utils.swift in Sources */,
 				59E47E7527B18C7800EC7255 /* DrawingDelegate.swift in Sources */,
+				59849B74281DBAF400C52071 /* CheckForUpdatesService.swift in Sources */,
 				03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */,
 				5970ED5E27FCC3CE00890A41 /* UpdateAvailableView.swift in Sources */,
 				59E47E7727B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */,
+				59849B78281DD35300C52071 /* DefaultsManager.swift in Sources */,
 				59B6D69D270386FE0027FFDD /* Dots.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,8 +371,11 @@
 				59E47E7B27B2423900EC7255 /* Utils.swift in Sources */,
 				5970ED5F27FCC57500890A41 /* UpdateAvailableView.swift in Sources */,
 				ACD8918E1DC38C4B0019C16F /* DancingBoidsView.swift in Sources */,
+				5983DEAA281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */,
 				59E47E7C27B2424200EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */,
 				59B6D69E2703B8140027FFDD /* Dots.metal in Sources */,
+				59849B75281DBAF400C52071 /* CheckForUpdatesService.swift in Sources */,
+				59849B79281DD35300C52071 /* DefaultsManager.swift in Sources */,
 				ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */,
 				59E47E7A27B2422800EC7255 /* DrawingDelegate.swift in Sources */,
 			);

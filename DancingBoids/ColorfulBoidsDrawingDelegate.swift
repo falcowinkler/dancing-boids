@@ -47,9 +47,11 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
         }
 
         let bundle = Bundle(for: DancingBoidsView.self)
-        let defaultLibrary = (
+        guard let defaultLibrary = (
             try? device.makeDefaultLibrary(bundle: bundle)) ??
-        device.makeDefaultLibrary()!
+                device.makeDefaultLibrary() else {
+            return
+        }
 
         self.fragmentFunction = defaultLibrary.makeFunction(name: "fragment_main")
         self.vertexFunction = defaultLibrary.makeFunction(name: "vertex_main")
@@ -73,7 +75,7 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
         let vertexData: [Vertex] = positions.enumerated().flatMap { (index, position) -> [Vertex] in
             let x: Float = 0
             let y: Float = 0
-            let triangleVertices = [(x,y + 0.05), (x-0.0125,y), (x+0.0125, y)]
+            let triangleVertices = [(x,y + 0.04), (x-0.01,y), (x+0.01, y)]
             return triangleVertices.map { vertex in
                 Vertex(
                     position: .init(vertex.0, vertex.1, 0, 1),
