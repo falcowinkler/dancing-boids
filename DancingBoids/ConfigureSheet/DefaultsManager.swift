@@ -9,10 +9,15 @@ extension DefaultsManager {
     static var live: Self {
         let identifier = Bundle(for: ConfigureSheetController.self).bundleIdentifier
         let defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
+        let key = "numberOfBoids"
+        defaults.register(defaults: [
+            key: 150
+        ])
         return Self.init(getNumberOfBoids: {
-            defaults.object(forKey: "numberOfBoids") as? Int ?? 150
+            defaults.integer(forKey: key)
         }, setNumberOfBoids: { newValue in
-            defaults.set(newValue, forKey: "numberOfBoids")
+            defaults.set(newValue, forKey: key)
+            defaults.synchronize()
         })
     }
 }
