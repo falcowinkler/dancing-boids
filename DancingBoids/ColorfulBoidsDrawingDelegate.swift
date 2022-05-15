@@ -24,9 +24,10 @@ struct ColorfulBoidsDrawingDelegate: DrawingDelegate {
     private var pipelineState: MTLRenderPipelineState!
     private let colors: [simd_float4]
     private let frame: NSRect
-    
+    var defaultsManager: DefaultsManager = .live
+
     init(frame: NSRect, isPreview: Bool, mtkView: MTKView) {
-        let size = 100
+        let size = defaultsManager.getNumberOfBoids()
         self.frame = frame
 
         func rand(_ start: Float = 0.1, _ end: Float = 1) -> Float {

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigureSheetController" customModule="DancingBoids" customModuleProvider="target">
             <connections>
                 <outlet property="checkingForUpdatesLabel" destination="Kah-Dq-hyu" id="QFF-u8-6Pp"/>
+                <outlet property="numberOfBoidsSlider" destination="Heg-4d-XI0" id="Zgj-aN-TRG"/>
                 <outlet property="updateButton" destination="eBJ-ob-Asi" id="ioP-t9-V1t"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="laD-bI-9wO"/>
             </connections>
@@ -44,6 +45,15 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jTg-bs-NFv">
+                        <rect key="frame" x="56" y="151" width="144" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Number of boids:" id="snf-Ax-qsy">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lsB-4d-KwF">
                         <rect key="frame" x="82" y="13" width="92" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -55,6 +65,14 @@
                             <action selector="closeWindow:" target="-2" id="AbP-X2-ZX9"/>
                         </connections>
                     </button>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Heg-4d-XI0">
+                        <rect key="frame" x="80" y="110" width="96" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="500" doubleValue="150" tickMarkPosition="above" sliderType="linear" id="9MW-JS-bVG"/>
+                        <connections>
+                            <action selector="numbeOfBoidsChanged:" target="-2" id="Yke-p8-dAe"/>
+                        </connections>
+                    </slider>
                 </subviews>
             </view>
             <point key="canvasLocation" x="390" y="566.5"/>

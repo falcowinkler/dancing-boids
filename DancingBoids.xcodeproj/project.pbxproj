@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03A485271B644187008A2D6A /* DancingBoidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A485261B644187008A2D6A /* DancingBoidsView.swift */; };
+		5912322A283055520082712C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59123229283055520082712C /* Device.swift */; };
 		5970ED5E27FCC3CE00890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
 		5970ED5F27FCC57500890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
 		5983DEA9281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */; };
@@ -51,6 +52,7 @@
 		03A485181B644145008A2D6A /* DancingBoids.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DancingBoids.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A4851C1B644145008A2D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A485261B644187008A2D6A /* DancingBoidsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancingBoidsView.swift; sourceTree = "<group>"; };
+		59123229283055520082712C /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAvailableView.swift; sourceTree = "<group>"; };
 		5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSheetViewController.swift; sourceTree = "<group>"; };
 		59849B71281DBA7100C52071 /* ConfigureSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				59E47E7627B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift */,
 				59E47E7827B18FD700EC7255 /* Utils.swift */,
 				59F289ED27FF671D00188373 /* current_tag.txt */,
+				59123229283055520082712C /* Device.swift */,
 			);
 			path = DancingBoids;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				59E47E7727B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */,
 				59849B78281DD35300C52071 /* DefaultsManager.swift in Sources */,
 				59B6D69D270386FE0027FFDD /* Dots.metal in Sources */,
+				5912322A283055520082712C /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

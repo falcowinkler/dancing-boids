@@ -4,8 +4,10 @@ class ConfigureSheetController : NSObject {
     @IBOutlet var window: NSWindow!
     @IBOutlet weak var updateButton: NSButton!
     @IBOutlet weak var checkingForUpdatesLabel: NSTextField!
+    @IBOutlet weak var numberOfBoidsSlider: NSSlider!
 
-    let checkForUpdatesService: CheckForUpdatesService = .live
+    var checkForUpdatesService: CheckForUpdatesService = .live
+    var defaultsManager: DefaultsManager = .live
 
     override init() {
         super.init()
@@ -13,6 +15,7 @@ class ConfigureSheetController : NSObject {
         if !myBundle.loadNibNamed("ConfigureSheet", owner: self, topLevelObjects: nil) {
             fatalError("Could not load configure sheet")
         }
+        self.numberOfBoidsSlider.intValue = Int32(defaultsManager.getNumberOfBoids())
 
         Task {
             let isUpdateAvailable = await checkForUpdatesService.isUpdateAvailable()
@@ -34,6 +37,10 @@ class ConfigureSheetController : NSObject {
     @IBAction func onClickUpdate(_ sender: Any) {
         let url = URL(string: "https://github.com/netlight/dancing-boids/releases")!
         NSWorkspace.shared.open(url)
+    }
+
+    @IBAction func numbeOfBoidsChanged(_ sender: Any) {
+        self.defaultsManager.setNumberOfBoids(self.numberOfBoidsSlider.integerValue)
     }
 
     @IBAction func closeWindow(_ sender: Any) {
