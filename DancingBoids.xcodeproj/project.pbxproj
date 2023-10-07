@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,6 @@
 		5912322A283055520082712C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59123229283055520082712C /* Device.swift */; };
 		5970ED5E27FCC3CE00890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
 		5970ED5F27FCC57500890A41 /* UpdateAvailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5970ED5D27FCC3CE00890A41 /* UpdateAvailableView.swift */; };
-		5972C48E2994DA8A0048D993 /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 5972C48D2994DA8A0048D993 /* Flockingbird */; };
 		5983DEA9281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */; };
 		5983DEAA281DB65F0000F3DC /* ConfigureSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5983DEA8281DB65F0000F3DC /* ConfigureSheetViewController.swift */; };
 		59849B72281DBA7100C52071 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59849B71281DBA7100C52071 /* ConfigureSheet.xib */; };
@@ -31,6 +30,8 @@
 		59E47E7C27B2424200EC7255 /* ColorfulBoidsDrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E47E7627B18D8400EC7255 /* ColorfulBoidsDrawingDelegate.swift */; };
 		59F289EE27FF671D00188373 /* current_tag.txt in Resources */ = {isa = PBXBuildFile; fileRef = 59F289ED27FF671D00188373 /* current_tag.txt */; };
 		59F289EF27FF671D00188373 /* current_tag.txt in Resources */ = {isa = PBXBuildFile; fileRef = 59F289ED27FF671D00188373 /* current_tag.txt */; };
+		7D845ED62AD15B6900040AF1 /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 7D845ED52AD15B6900040AF1 /* Flockingbird */; };
+		7D845ED82AD15B8100040AF1 /* Flockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 7D845ED72AD15B8100040AF1 /* Flockingbird */; };
 		ACD891841DC38B790019C16F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD891831DC38B790019C16F /* AppDelegate.swift */; };
 		ACD891861DC38B790019C16F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD891851DC38B790019C16F /* Assets.xcassets */; };
 		ACD891891DC38B790019C16F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD891871DC38B790019C16F /* MainMenu.xib */; };
@@ -77,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5972C48E2994DA8A0048D993 /* Flockingbird in Frameworks */,
+				7D845ED62AD15B6900040AF1 /* Flockingbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D845ED82AD15B8100040AF1 /* Flockingbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +220,7 @@
 			);
 			name = DancingBoids;
 			packageProductDependencies = (
-				5972C48D2994DA8A0048D993 /* Flockingbird */,
+				7D845ED52AD15B6900040AF1 /* Flockingbird */,
 			);
 			productName = SwiftCircle;
 			productReference = 03A485181B644145008A2D6A /* DancingBoids.saver */;
@@ -256,6 +258,7 @@
 			);
 			name = ScreenSaverTest;
 			packageProductDependencies = (
+				7D845ED72AD15B8100040AF1 /* Flockingbird */,
 			);
 			productName = ScreenSaverTest;
 			productReference = ACD891811DC38B790019C16F /* ScreenSaverTest.app */;
@@ -296,7 +299,7 @@
 			);
 			mainGroup = 03A4850E1B644145008A2D6A;
 			packageReferences = (
-				5972C48C2994DA8A0048D993 /* XCRemoteSwiftPackageReference "flockingbird-swift" */,
+				7D845ED42AD15A8400040AF1 /* XCRemoteSwiftPackageReference "flockingbird-swift" */,
 			);
 			productRefGroup = 03A485191B644145008A2D6A /* Products */;
 			projectDirPath = "";
@@ -704,9 +707,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5972C48C2994DA8A0048D993 /* XCRemoteSwiftPackageReference "flockingbird-swift" */ = {
+		7D845ED42AD15A8400040AF1 /* XCRemoteSwiftPackageReference "flockingbird-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/netlight/flockingbird-swift";
+			repositoryURL = "https://github.com/falcowinkler/flockingbird-swift";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -715,9 +718,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5972C48D2994DA8A0048D993 /* Flockingbird */ = {
+		7D845ED52AD15B6900040AF1 /* Flockingbird */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5972C48C2994DA8A0048D993 /* XCRemoteSwiftPackageReference "flockingbird-swift" */;
+			package = 7D845ED42AD15A8400040AF1 /* XCRemoteSwiftPackageReference "flockingbird-swift" */;
+			productName = Flockingbird;
+		};
+		7D845ED72AD15B8100040AF1 /* Flockingbird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D845ED42AD15A8400040AF1 /* XCRemoteSwiftPackageReference "flockingbird-swift" */;
 			productName = Flockingbird;
 		};
 /* End XCSwiftPackageProductDependency section */

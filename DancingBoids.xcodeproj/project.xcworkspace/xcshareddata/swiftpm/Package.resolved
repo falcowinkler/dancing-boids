@@ -3,7 +3,7 @@
     {
       "identity" : "flockingbird-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/netlight/flockingbird-swift",
+      "location" : "https://github.com/falcowinkler/flockingbird-swift",
       "state" : {
         "branch" : "main",
         "revision" : "a4aef994111c95b741ae87a381746d184e100d4f"
